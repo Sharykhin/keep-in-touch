@@ -17,3 +17,10 @@ There are should be implemented following options:
 
 
 For photo album there should be used progress bar
+
+Stack:
+-----
+
+* Angularjs
+* Golang
+* Bootstrap CSS
