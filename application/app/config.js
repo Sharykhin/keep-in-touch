@@ -3,7 +3,6 @@ define([],function(){
 
    return  {
         name: 'KeepInTouch',
-        apiHost: 'localhost',
-        apiPort: 9090
+        apiServer: 'http://localhost:9090'        
     };
 });

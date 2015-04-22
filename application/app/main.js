@@ -4,15 +4,15 @@ require.config({
     baseUrl:'/',
     paths: {
         'domReady' : 'vendors/requirejs-domready/domReady',
-        'angular' : 'vendors/angular/angular',
-        'angular-route' : 'vendors/angular-route/angular-route',
+        'angular' : 'vendors/angular/angular',        
+        'angular-ui-route' : 'vendors/angular-ui-router/release/angular-ui-router.min',
         'angular-cookies': 'vendors/angular-cookies/angular-cookies'
     },
     shim : {
         'angular' : {
             exports: 'angular'
-        },
-        'angular-route': {
+        },        
+        'angular-ui-route': {
             'deps':['angular']
         },
         'angular-cookies' : {

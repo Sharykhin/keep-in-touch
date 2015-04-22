@@ -10,7 +10,7 @@ define([
     var dependencies = ['$scope','$http'];
 
     var controller = function($scope,$http) {
-    		$http.get(appConfig.apiHost + ':' + appConfig.apiPort).
+    		$http.get(appConfig.apiServer).
 			  success(function(data, status, headers, config) {
 			    console.log(data);
 			  }).

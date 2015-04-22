@@ -14,6 +14,7 @@ type Echo struct {
 }
 
 func (this *EchoController) Get() {
+
 	res := Echo{200, "Success"}
 	this.Data["json"] = res
 	this.ServeJson()

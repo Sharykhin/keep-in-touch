@@ -3,7 +3,7 @@ define([
     './config',
     './src/frontend/module.config',
     './src/common/module.config',
-    'angular-route',
+    'angular-ui-route',
     'angular-cookies',
     './src/frontend/module.require',
     './src/common/module.require'   
@@ -11,7 +11,7 @@ define([
    'use strict';
 
     var app = angular.module(config.name,[
-        'ngRoute',
+        'ui.router',
         'ngCookies',
         frontendModuleConfig.name,
         commonModuleConfig.name        
