@@ -1,19 +1,24 @@
 {
-  "name": "events",
-  "version": "0.0.0",
-  "description": "angular application about events",
-  "main": "Gruntfile.js",
+  "name": "keep-in-touch",
+  "version": "0.0.1",
+  "description": "simple social network",
+  "main": "gulpfile.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Mr.Chapal",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Sharykhin/keep-in-touch.git"
+  },
+  "author": "Siarhei Sharykhin",
   "license": "BSD-2-Clause",
-  "dependencies": {
-    "grunt": "~0.4.5",
-    "grunt-contrib-watch": "~0.6.1",
-    "grunt-contrib-jshint": "~0.10.0",
-    "connect": "~3.3.3",
-    "serve-static": "~1.7.1",
-    "jshint-stylish": "~1.0.0"
+  "bugs": {
+    "url": "https://github.com/Sharykhin/keep-in-touch/issues"
+  },
+  "devDependencies": {
+    "gulp-watch": "~4.2.4",
+    "gulp-live-server": "0.0.14",
+    "gulp": "~3.8.11",
+    "gulp-gjslint": "~0.1.4"
   }
 }
