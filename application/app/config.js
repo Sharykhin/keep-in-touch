@@ -2,6 +2,8 @@ define([],function(){
    'use strict';
 
    return  {
-        name: 'KeepInTouch'
+        name: 'KeepInTouch',
+        apiHost: 'localhost',
+        apiPort: 9090
     };
 });
