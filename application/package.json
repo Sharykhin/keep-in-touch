@@ -1,0 +1,24 @@
+{
+  "name": "keep-in-touch",
+  "version": "0.0.1",
+  "description": "simple social network",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Sharykhin/keep-in-touch.git"
+  },
+  "author": "Siarhei Sharykhin",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/Sharykhin/keep-in-touch/issues"
+  },
+  "devDependencies": {
+    "gulp-watch": "~4.2.4",
+    "gulp-live-server": "0.0.14",
+    "gulp": "~3.8.11",
+    "gulp-gjslint": "~0.1.4"
+  }
+}
