@@ -15,9 +15,12 @@ define([
         'ngCookies',
         frontendModuleConfig.name,
         commonModuleConfig.name        
-    ]).run(function(){
-
-    });
+    ]).run(['$rootScope',function($rootScope){
+         console.log("Hi Jack");
+         $rootScope.$on('$routeChangeStart', function(next, current) { 
+           console.log("Hi Route");
+         });
+    }]);
 
     return app;
 

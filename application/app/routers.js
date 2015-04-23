@@ -17,11 +17,16 @@ define([
           controller: frontendConfig.name + '.HomeController'
         })
         .state('home.index', {
-          url: "/index",
+          url: "index",
           templateUrl: "partials/state1.list.html",
           controller: function($scope) {
             $scope.items = ["A", "List", "Of", "Items"];
           }
+        })
+        .state('home.list',{
+            url: "admin",
+            templateUrl: 'src/' + frontendConfig.templatePath + 'index.html',
+            controller: frontendConfig.name + '.HomeController'
         });       
        
     });
