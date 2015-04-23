@@ -17,7 +17,7 @@ define([
         commonModuleConfig.name        
     ]).run(['$rootScope',function($rootScope){
          console.log("Hi Jack");
-         $rootScope.$on('$routeChangeStart', function(next, current) { 
+         $rootScope.$on('$locationChangeStart', function(next, current) { 
            console.log("Hi Route");
          });
     }]);
