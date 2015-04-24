@@ -16,10 +16,13 @@ define([
         frontendModuleConfig.name,
         commonModuleConfig.name        
     ]).run(['$rootScope',function($rootScope){
-         console.log("Hi Jack");
-         $rootScope.$on('$locationChangeStart', function(next, current) { 
-           console.log("Hi Route");
-         });
+             
+
+         $rootScope.$on('$stateChangeStart', 
+            function(event, toState, toParams, fromState, fromParams){ 
+                console.log("State change");
+            });
+         
     }]);
 
     return app;
