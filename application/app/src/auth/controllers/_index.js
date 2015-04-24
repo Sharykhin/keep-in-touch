@@ -1,0 +1,3 @@
+define([
+    './AuthController'
+],function(){});
