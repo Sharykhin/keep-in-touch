@@ -34,7 +34,16 @@ define([
             url: '/sign-in',
             views: {
                 'content' : {
-                    templateUrl : 'src/auth/views/login.html',
+                    templateUrl : 'src/auth/views/sign_in.html',
+                    controller: authConfig.name + '.AuthController'
+                }
+            }
+        })
+        .state('sign_up',{
+            url: '/sign-up',
+            views : {
+                'content' : {
+                    templateUrl : 'src/auth/views/sign_up.html',
                     controller: authConfig.name + '.AuthController'
                 }
             }
