@@ -4,6 +4,7 @@ import (
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/context"
 	"keep-in-touch/server/controllers"
+	_ "keep-in-touch/server/modules/users/routers"
 )
 
 func init() {
