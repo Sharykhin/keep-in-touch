@@ -3,7 +3,7 @@ package controllers
 import (
 	"encoding/json"
 	"github.com/astaxie/beego"
-	//"github.com/astaxie/beego/orm"
+	"github.com/astaxie/beego/orm"
 	userModel "keep-in-touch/server/modules/users/models"
 )
 
@@ -19,20 +19,27 @@ func (this *UsersController) Get() {
 }
 
 func (this *UsersController) Post() {
-	beego.Debug("HELLO")
-	req := this.Ctx.Request
-
-	p := make([]byte, req.ContentLength)
+	o := orm.NewOrm()
+	o.Using("default")
+	// Get JSON data
+	data := this.Ctx.Input.RequestBody
+	// Initialize new model
 	user := new(userModel.User)
-	_, err := this.Ctx.Request.Body.Read(p)
-	if err == nil {
-		json.Unmarshal(p, &user)
+	// Convert json
+	if err := json.Unmarshal(data, &user); err != nil {
+		beego.Error(err)
 	}
-	//o := orm.NewOrm()
+	// Make insert request
+	id, err := o.Insert(user)
+	if err != nil {
+		beego.Error(err)
+	}
+	// Set response data
+	this.Data["json"] = struct {
+		Code int
+		Id   int
+	}{Code: 200, Id: int(id)}
 
-	//json.Unmarshal(this.Ctx.Request.Body, &user)
-	//beego.Debug(this.Ctx.Input.Params)
-	this.Data["json"] = user
 	this.ServeJson()
 
 }
