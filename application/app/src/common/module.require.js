@@ -1,5 +1,4 @@
 define([
-    './directives/_index'
-],function(){
-   'use strict';
-});
+    './directives/_index',
+    './services/_index'
+], function() {});

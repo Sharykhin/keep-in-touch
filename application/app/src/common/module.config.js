@@ -1,9 +1,10 @@
-define(['../../config'],function(config){
+define([
+    '../../config'
+], function(config) {
    'use strict';
 
    var moduleConfig = {
-       name: config.name + '.Common',
-       templatePath: 'common/templates/'
+       name: config.name + '.Common'
    };
 
    return moduleConfig;

@@ -10,7 +10,8 @@ gulp.task('serve',function(){
 });
 
 gulp.task('jslint', function() {
-    return gulp.src(['./app/**/*.js','!./app/vendors/**/*.js'])
+    //return gulp.src(['./app/**/*.js','!./app/vendors/**/*.js'])
+    return gulp.src(['./app/src/common/*.js','!./app/vendors/**/*.js'])
         .pipe(gjslint())
         .pipe(gjslint.reporter('console'));
 });

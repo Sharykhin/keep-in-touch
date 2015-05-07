@@ -3,25 +3,38 @@
 	<div class="col-md-8">
 		<fieldset>
 			<legend>Sign Up</legend>
-			<form method="action" action="">
+			<form name="userForm" novalidate  ng-submit="addUser(user)">
 			  <div class="form-group">
 			    <label for="exampleInputEmail1">Username</label>
-			    <input type="text" name="username" class="form-control" placeholder="Username">
+			    <input type="text" name="name" class="form-control" required placeholder="Username" ng-model="user.name">
+			    <div class="error" ng-show="showErrors">
+			    		{{getErrors(userForm.name.$error)}}
+			    </div>
 			  </div>
 			  <div class="form-group">
 			    <label for="exampleInputEmail1">Email address</label>
-			    <input type="email" name="email" class="form-control" placeholder="Email address">
+			    <input type="email" name="email" class="form-control" ng-pattern="matchEmail" required placeholder="Email address" ng-model="user.email">
+			    <div class="error" ng-show="showErrors">
+			    		{{getErrors(userForm.email.$error,'email')}}
+			    </div>
 			  </div>
 			  <div class="form-group">
 			    <label for="exampleInputPassword1">Password</label>
-			    <input type="password" name="password" class="form-control" placeholder="Password">
+			    <input type="password" name="password" class="form-control" ng-minlength="6" required placeholder="Password" ng-model="user.password">
+			    <div class="error" ng-show="showErrors">
+			    		{{getErrors(userForm.password.$error)}}
+			    </div>
 			  </div>
 			   <div class="form-group">
 			    <label for="exampleInputPassword1">Confirm Password</label>
-			    <input type="password" name="confirm_password" class="form-control" placeholder="Confirm Password">
+			    <input type="password" name="confirm_password" ng-minlength="6" required class="form-control" placeholder="Confirm Password" ng-model="user.confirm_password">
+			    <div class="error" ng-hide="compareTo(user.password, user.confirm_password)">
+			    		bla bla bla
+			    </div>
 			  </div>	 
 			 
 			  <button type="submit" class="btn btn-primary">Sign Up</button>
+			  {{userForm.$valid}}
 			</form>
 		</fieldset>
 	</div>

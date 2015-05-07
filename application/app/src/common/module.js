@@ -1,9 +1,9 @@
 define([
         'angular',
         './module.config'
-],function(angular,moduleConfig){
+], function(angular, moduleConfig) {
    'use strict';
 
-    return angular.module(moduleConfig.name,[]);
+    return angular.module(moduleConfig.name, []);
 
 });
