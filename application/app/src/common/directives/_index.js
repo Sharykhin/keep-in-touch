@@ -1,6 +1,3 @@
 define([
     './headerDirective'
-],function(){
-   'use strict';
-
-});
+], function() {});
