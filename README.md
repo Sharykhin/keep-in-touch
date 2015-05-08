@@ -24,3 +24,7 @@ Stack:
 * Angularjs
 * Golang
 * Bootstrap CSS
+ 
+
+Tests:
+-----
