@@ -1,3 +1,5 @@
 define([
-    './headerDirective'
+    './headerDirective',
+    './validation/compareToDirective',
+    './progress/progressBarDirective'
 ], function() {});

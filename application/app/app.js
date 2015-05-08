@@ -5,7 +5,7 @@ define([
     './src/common/module.config',
     './src/auth/module.config',
     'angular-ui-route',
-    'angular-cookies',
+    'angular-cookies',   
     './src/frontend/module.require',
     './src/common/module.require',
     './src/auth/module.require'   
@@ -14,7 +14,7 @@ define([
 
     var app = angular.module(config.name,[
         'ui.router',
-        'ngCookies',
+        'ngCookies',       
         frontendModuleConfig.name,
         commonModuleConfig.name,
         authModuleConfig.name        

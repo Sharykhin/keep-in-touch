@@ -12,18 +12,15 @@ define([
 			$scope.showErrors = false;
 
 			$scope.addUser = function(user) {
-				if (user.password !== user.confirm_password) {
-					$scope.userForm.$invalid = true;
-					$scope.userForm.confirm_password.$invalid=true;
-				}
+
 				if ($scope.userForm.$invalid) {
 						$scope.showErrors = true;
 				}
 				
-			};
+			};			
 
 			$scope.getErrors = function(error,patternName) {
-				console.log(error)
+				//console.log(error)
 				if (angular.isDefined(error)) {
 					if (error.required) {
 						return "This field is required";
@@ -31,14 +28,13 @@ define([
 						return "Enter valid " + patternName;
 					} else if (error.minlength) {
 						return "The field should contain at least 6 characters";
+					} else if (error.compareTo) {
+						return "Confirm the value";
 					}
 
 
 				}
-			};
-			$scope.compareTo = function(sourceValue, compareValue) {
-				return sourceValue == compareValue;
-			}	
+			};		
 
 	}]);
 });
