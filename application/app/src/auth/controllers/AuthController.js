@@ -17,7 +17,7 @@ define([
 						$scope.showErrors = true;
 				}
 				
-			};			
+			};
 
 			$scope.getErrors = function(error,patternName) {
 				//console.log(error)

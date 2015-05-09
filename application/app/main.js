@@ -6,7 +6,8 @@ require.config({
         'domReady' : 'vendors/requirejs-domready/domReady',
         'angular' : 'vendors/angular/angular',        
         'angular-ui-route' : 'vendors/angular-ui-router/release/angular-ui-router.min',      
-        'angular-cookies': 'vendors/angular-cookies/angular-cookies'
+        'angular-cookies': 'vendors/angular-cookies/angular-cookies',      
+        'underscore' : 'vendors/underscore/underscore-min'
     },
     shim : {
         'angular' : {
@@ -17,7 +18,7 @@ require.config({
         },
         'angular-cookies' : {
             'deps' : ['angular']
-        }        
+        }              
     }
 });
 

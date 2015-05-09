@@ -6,15 +6,22 @@ define([
     './src/auth/module.config',
     'angular-ui-route',
     'angular-cookies',   
+    'underscore',  
     './src/frontend/module.require',
     './src/common/module.require',
     './src/auth/module.require'   
 ],function(angular,config,frontendModuleConfig,commonModuleConfig,authModuleConfig){
    'use strict';
 
+    var underscore = angular.module('underscore', []);
+    underscore.factory('_', ['$window', function($window) {
+      return $window._; // assumes underscore has already been loaded on the page
+    }]);
+
     var app = angular.module(config.name,[
         'ui.router',
-        'ngCookies',       
+        'ngCookies',
+        'underscore',        
         frontendModuleConfig.name,
         commonModuleConfig.name,
         authModuleConfig.name        
