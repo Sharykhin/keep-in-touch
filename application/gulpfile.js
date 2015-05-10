@@ -11,8 +11,11 @@ gulp.task('serve',function(){
 
 gulp.task('jslint', function() {
     //return gulp.src(['./app/**/*.js','!./app/vendors/**/*.js'])
-    return gulp.src(['./app/src/common/*.js','!./app/vendors/**/*.js'])
-        .pipe(gjslint())
+    return gulp.src(['./app/src/common/directives/**/*.js','!./app/vendors/**/*.js'])
+        .pipe(gjslint({
+        	smarttabs:true,
+        	"-W099": true        	
+        }))
         .pipe(gjslint.reporter('console'));
 });
 
