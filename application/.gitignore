@@ -1,4 +1,5 @@
 node_modules/*
 ./idea
 app/vendors/*
+app2/vendors/*
 

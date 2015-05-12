@@ -14,7 +14,7 @@
   "license": "BSD-2-Clause",
   "bugs": {
     "url": "https://github.com/Sharykhin/keep-in-touch/issues"
-  },
+  },  
   "devDependencies": {
     "gulp-watch": "~4.2.4",
     "gulp-live-server": "0.0.14",
