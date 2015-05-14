@@ -1,30 +1,35 @@
 // app.js
 
 // require all of the core libraries
-var angular = require('angular');
+//var angular = require('angular');
 //require('./vendors/angular/angular.min');
-//require('./vendors/angular-route/angular-route.min');
-require('angular-route');
 
-var frontend = require('./bundles/frontend');
+//require('angular-route');
+
+//require('./bundles/frontend');
+
+var angular = require('./public/js/angular/angular-index');
+require('./vendors/angular-route/angular-route.min');
 
 // module up
-var app = angular.module('app', [ 'ngRoute', frontend ]);
+var app = angular.module('app', []);
 
 // routes and such
-app.config(['$routeProvider', function($routeProvider) {
+/*app.config(['$routeProvider', function($routeProvider) {
   console.log('config');
   $routeProvider
     .when('/',
     {
       templateUrl: 'bundles/frontend/views/index.html',
-      controller: 'HomeController'
+      controller: function() {
+        console.log('Yes i am');
+      }
     })
     .otherwise(
     {
       redirectTo: '/'
     });
-}]);
+}]);*/
 
 app.run(function(){
   console.log('hello world');

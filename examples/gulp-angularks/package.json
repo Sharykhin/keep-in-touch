@@ -1,0 +1,25 @@
+{
+  "name": "gulp-angularks",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "BSD-2-Clause",
+  "devDependencies": {
+    "connect-livereload": "~0.5.3",
+    "gulp-embedlr": "~0.5.2",
+    "gulp-concat": "~2.5.2",
+    "gulp-livereload": "~3.8.0",
+    "express": "~4.12.3",
+    "gulp-util": "~3.0.4",
+    "tiny-lr": "~0.1.5",
+    "gulp-clean": "~0.3.1",
+    "gulp-jshint": "~1.10.0",
+    "gulp-browserify": "~0.5.1",
+    "gulp": "~3.8.11",
+    "browserify": "~10.1.3"
+  }
+}

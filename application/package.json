@@ -15,6 +15,10 @@
   "bugs": {
     "url": "https://github.com/Sharykhin/keep-in-touch/issues"
   },  
+  "browser": {
+    "angular": "./app2/public/js/angular/angular-index.js",
+    "angular-route": "./app2/public/js/angular-route/angular-route.min.js"
+  },
   "devDependencies": {
     "gulp-watch": "~4.2.4",
     "gulp-live-server": "0.0.14",
