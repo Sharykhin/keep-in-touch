@@ -9,5 +9,5 @@ Usage:
 
     node server.js
 
-    grunt watch
+    gulp watch
 
