@@ -22,7 +22,7 @@ Stack:
 -----
 
 * Angularjs
-* Golang
+* Golang (Beego frameworkd)
 * Bootstrap CSS
  
 
