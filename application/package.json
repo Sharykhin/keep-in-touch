@@ -1,28 +1,25 @@
 {
-  "name": "keep-in-touch",
-  "version": "0.0.1",
-  "description": "simple social network",
-  "main": "gulpfile.js",
+  "name": "gulp-angularks",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Sharykhin/keep-in-touch.git"
-  },
-  "author": "Siarhei Sharykhin",
+  "author": "",
   "license": "BSD-2-Clause",
-  "bugs": {
-    "url": "https://github.com/Sharykhin/keep-in-touch/issues"
-  },  
-  "browser": {
-    "angular": "./app2/public/js/angular/angular-index.js",
-    "angular-route": "./app2/public/js/angular-route/angular-route.min.js"
-  },
   "devDependencies": {
-    "gulp-watch": "~4.2.4",
-    "gulp-live-server": "0.0.14",
+    "connect-livereload": "~0.5.3",
+    "gulp-embedlr": "~0.5.2",
+    "gulp-concat": "~2.5.2",
+    "gulp-livereload": "~3.8.0",
+    "express": "~4.12.3",
+    "gulp-util": "~3.0.4",
+    "tiny-lr": "~0.1.5",
+    "gulp-clean": "~0.3.1",
+    "gulp-jshint": "~1.10.0",
+    "gulp-browserify": "~0.5.1",
     "gulp": "~3.8.11",
-    "gulp-gjslint": "~0.1.4"
+    "browserify": "~10.1.3"
   }
 }
