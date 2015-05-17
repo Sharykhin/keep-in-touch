@@ -2,12 +2,29 @@
 <html lang="en">
 <head>
   <title>My Awesome App</title>
+  <link rel="stylesheet" type="text/css" href="/vendor/bootstrap/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="/vendor/bootstrap/dist/css/bootstrap-theme.min.css" />
   <link rel="stylesheet" type="text/css" href="/public/css/style.css">
 </head>
 <body>
-	<h2>Angular application</h2>
-	 <div ui-view="content"></div>   
-	 <a ui-stef="home.list" href="/#/admin">admin</a>    
-  <script src="/js/bundle.js"></script>
+	<div class="container">
+		<div class="well">
+			<div class="row">
+			<div class="col-md-10">
+				<h1>
+					<a ui-stef="home" href="/#/">Keep In Touch</a>
+				</h1>
+			</div>
+
+			<div class="col-md-2">
+				<a class="btn btn-sm btn-primary" ui-sref="sign_in">Sign In</a>
+				<a class="btn btn-sm btn-primary" ui-sref="sign_up">Sign Up</a>
+			</div>
+			</div>
+		</div>
+		
+		 <div ui-view="content"></div>     
+ 	 </div>
+  <script src="/js/bundle.js"></script>	
 </body>
 </html>

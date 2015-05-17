@@ -15,7 +15,7 @@ var embedlr = require('gulp-embedlr'),
 
 // JSHint task
 gulp.task('lint', function() {
-  gulp.src('./app/scripts/*.js')
+  gulp.src('./app/bundles/auth/**/*.js')
   .pipe(jshint())
   // You can look into pretty reporters as well, but that's another story
   .pipe(jshint.reporter('default'));
@@ -40,9 +40,14 @@ gulp.task('copy', function() {
   //copy index.html
   gulp.src('./app/index.html')
   .pipe(gulp.dest('dist/'));
+
   //copy customer css|js|img files
   gulp.src('./app/public/**/*')
-    .pipe(gulp.dest('dist/public'))
+    .pipe(gulp.dest('dist/public'));
+
+  gulp.src('./app/vendor/bootstrap/**/*')
+    .pipe(gulp.dest('dist/vendor/bootstrap'));
+    
   // copy all views from bundles
   gulp.src('./app/bundles/**/*.html')
   .pipe(gulp.dest('dist/bundles/'))

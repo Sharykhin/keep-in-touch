@@ -6,16 +6,17 @@ app.config(['$stateProvider','$urlRouterProvider', function($stateProvider, $url
    $urlRouterProvider.otherwise("/");
 
    // Now set up the states
+      // Now set up the states
       $stateProvider
         .state('home', {
             url: "/",
             views : {
                 'content' : {
-                    templateUrl:  'bundles/frontend/views/index.html',
+                    templateUrl: 'bundles/frontend/views/index.html',
                     controller: 'frontend.DefaultController'
             }            
           }           
-        })
+        })        
         .state('home.list',{
             url: "/admin",
             views: {
@@ -24,6 +25,24 @@ app.config(['$stateProvider','$urlRouterProvider', function($stateProvider, $url
                     controller: 'frontend.DefaultController'
                 }
             }           
-        });    
+        })
+        .state('sign_in',{
+            url: '/sign-in',
+            views: {
+                'content' : {
+                    templateUrl : 'bundles/auth/views/sign_in.html',
+                    controller : 'auth.AuthController'
+                }
+            }
+        })
+        .state('sign_up',{
+            url: '/sign-up',
+            views : {
+                'content' : {
+                    templateUrl : 'bundles/auth/views/sign_up.html',
+                    controller: 'auth.AuthController'
+                }
+            }
+        })       
 
 }]);
