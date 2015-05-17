@@ -10,7 +10,7 @@ function progressBarDirective(_) {
 		    	model: '=',
 		    	fields: '='
 		    },	
-			templateUrl: 'src/common/directives/progress/progressBar.html',		 
+			templateUrl: 'bundles/common/directives/progress/progressBar.html',		 
 			link: function(scope, element, attrs) {
 				var form = angular.element(document.querySelector('form[name="' + scope.form.$name + '"]'));
 				scope.progress = 0;

@@ -3,7 +3,7 @@
 DefaultController.$inject=['$scope','_'];
 
 function DefaultController($scope, _) {
-		console.log(_.first([4,5,6]));
+		console.log(_.first([19,4,5,6]));
 		$scope.var2 = "Scope blin 22";
 }
 
