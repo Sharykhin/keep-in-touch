@@ -1,40 +1,37 @@
-define([
-    'angular',
-    './config',
-    './src/frontend/module.config',
-    './src/common/module.config',
-    './src/auth/module.config',
-    'angular-ui-route',
-    'angular-cookies',
-    './src/frontend/module.require',
-    './src/common/module.require',
-    './src/auth/module.require'   
-],function(angular,config,frontendModuleConfig,commonModuleConfig,authModuleConfig){
-   'use strict';
+'use strict'; 
 
-    var app = angular.module(config.name,[
-        'ui.router',
-        'ngCookies',
-        frontendModuleConfig.name,
-        commonModuleConfig.name,
-        authModuleConfig.name        
-    ]).run(['$rootScope',function($rootScope){
-             
+//Require neccssary libraries
+require('./vendor/angular/angular'); // That's right! We can just require angular as if we were in node
+require('./vendor/angular-ui-router/release/angular-ui-router');
+var _ = require('./vendor/underscore/underscore');
 
-         $rootScope.$on('$stateChangeStart', 
-            function(event, toState, toParams, fromState, fromParams){ 
-                console.log("State change");
-            });
 
-         $rootScope.$on('$stateNotFound', 
-            function(event, unfoundState, fromState, fromParams){ 
-                console.log(unfoundState.to); // "lazy.state"
-                console.log(unfoundState.toParams); // {a:1, b:2}
-                console.log(unfoundState.options); // {inherit:false} + default options
-            })
-         
-    }]);
 
-    return app;
+//Requires bundles
+require('./bundles/common/index');
+require('./bundles/frontend/index'); // We can use our WelcomeCtrl.js as a module. Rainbows.
+require('./bundles/auth/index')
 
+// Add underscore module
+var underscore = angular.module('underscore', []);
+underscore.factory('_', [function() { 
+	return _;
+}]);
+
+var app = angular.module('myApp', ['underscore','ui.router','common','frontend','auth'])
+	.run(['$rootScope',function($rootScope){
+  
+	  $rootScope.$on('$stateChangeStart', 
+	          function(event, toState, toParams, fromState, fromParams){ 
+	              console.log("State change");
+	    });
+
+}]);
+
+//Include routers
+require('./routers');
+
+//Run application
+angular.element(document).ready(function(){
+	angular.bootstrap(document,['myApp']);
 });

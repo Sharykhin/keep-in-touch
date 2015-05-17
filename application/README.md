@@ -7,7 +7,4 @@ Install:
 
 Usage:
 
-    node server.js
-
-    gulp watch
-
+    

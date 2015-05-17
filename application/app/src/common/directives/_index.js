@@ -1,3 +1,0 @@
-define([
-    './headerDirective'
-], function() {});
