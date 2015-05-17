@@ -22,5 +22,10 @@ Stack:
 -----
 
 * Angularjs
-* Golang
+* Golang (Beego frameworkd)
 * Bootstrap CSS
+ 
+
+Tests:
+-----
+Here will be situated stress tests
