@@ -24,7 +24,7 @@ gulp.task('lint', function() {
 // Browserify task
 gulp.task('browserify', function() {
   // Single point of entry (make sure not to src ALL your files, browserify will figure it out for you)
-  gulp.src(['app/scripts/main.js'])
+  gulp.src(['app/app.js'])
   .pipe(browserify({
     insertGlobals: true,
     debug: true
@@ -36,24 +36,28 @@ gulp.task('browserify', function() {
 });
 
 // Views task
-gulp.task('views', function() {
+gulp.task('copy', function() {
+  //copy index.html
   gulp.src('./app/index.html')
   .pipe(gulp.dest('dist/'));
-
-  gulp.src('./app/views/**/*')
-  .pipe(gulp.dest('dist/views/'))
+  //copy customer css|js|img files
+  gulp.src('./app/public/**/*')
+    .pipe(gulp.dest('dist/public'))
+  // copy all views from bundles
+  gulp.src('./app/bundles/**/*.html')
+  .pipe(gulp.dest('dist/bundles/'))
   .pipe(refresh(lrserver)); // Tell the lrserver to refresh
 });
 
 
 gulp.task('watch', function() {
   // Watch our scripts
-  gulp.watch(['app/scripts/*.js', 'app/scripts/**/*.js'],[   
+  gulp.watch(['app/**/*.js','!app/vendor/**/*'],[   
     'browserify'
   ]);
 
-  gulp.watch(['app/index.html', 'app/views/**/*.html'], [
-    'views'
+  gulp.watch(['app/index.html', 'app/**/*.html'], [
+    'copy'
   ]);
 
 });
