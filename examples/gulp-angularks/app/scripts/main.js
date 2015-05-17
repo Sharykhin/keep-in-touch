@@ -8,14 +8,11 @@ var WelcomeCtrl = require('./controllers/WelcomeCtrl'); // We can use our Welcom
 var app = angular.module('myApp', ['ngRoute'])
 
 app.config(['$routeProvider', function($routeProvider) {
-  console.log('config');
   $routeProvider
     .when('/',
     {
       templateUrl: '../views/index.html',
-      controller: function() {
-        console.log('Yes i am');
-      }
+      controller: WelcomeCtrl
     })
     .otherwise(
     {
@@ -25,6 +22,5 @@ app.config(['$routeProvider', function($routeProvider) {
 
 
 angular.element(document).ready(function(){
-	console.log('here i an');
-	angular.bootstrap(document,'myApp');
+	angular.bootstrap(document,['myApp']);
 });
