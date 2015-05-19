@@ -29,8 +29,7 @@ func (this *UsersController) Post() {
 	valid := validation.Validation{}
 	// Convert json
 	if err := json.Unmarshal(data, &user); err != nil {
-		errorData := components.ErrorData{Type: "json", Message: err.Error()}
-		this.Data["json"] = components.ResponseData{Code: 500, Errors: []components.ErrorData{errorData}}
+		this.Data["json"] = components.ResponseData{Code: 500, Errors: err.Error()}
 
 		this.ServeJson()
 		beego.Error(err)
@@ -48,7 +47,7 @@ func (this *UsersController) Post() {
 			log.Println(err.Key, err.Message)
 		}
 
-		this.Data["json"] = components.ResponseData{Code: 200, Success: false, Error: validationErrors}
+		this.Data["json"] = components.ResponseData{Code: 200, Success: false, Errors: validationErrors}
 		this.ServeJson()
 	}
 	// Make insert request
