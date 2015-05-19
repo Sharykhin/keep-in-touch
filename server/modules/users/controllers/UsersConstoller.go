@@ -4,8 +4,10 @@ import (
 	"encoding/json"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
+	"github.com/astaxie/beego/validation"
 	"keep-in-touch/server/components"
 	userModel "keep-in-touch/server/modules/users/models"
+	"log"
 )
 
 type UsersController struct {
@@ -24,6 +26,7 @@ func (this *UsersController) Post() {
 	data := this.Ctx.Input.RequestBody
 	// Initialize new model
 	user := new(userModel.User)
+	valid := validation.Validation{}
 	// Convert json
 	if err := json.Unmarshal(data, &user); err != nil {
 		errorData := components.ErrorData{Type: "json", Message: err.Error()}
@@ -32,6 +35,22 @@ func (this *UsersController) Post() {
 		this.ServeJson()
 		beego.Error(err)
 	}
+
+	isValid, err := valid.Valid(user)
+	if err != nil {
+		beego.Error(err)
+	}
+
+	if !isValid {
+		validationErrors := make(map[string]string)
+		for _, err := range valid.Errors {
+			validationErrors[err.Key] = err.Message
+			log.Println(err.Key, err.Message)
+		}
+
+		this.Data["json"] = components.ResponseData{Code: 200, Success: false, Error: validationErrors}
+		this.ServeJson()
+	}
 	// Make insert request
 	id, err := o.Insert(user)
 	if err != nil {
@@ -39,7 +58,7 @@ func (this *UsersController) Post() {
 	}
 
 	// Set response data
-	this.Data["json"] = components.ResponseData{Code: 200, Data: id}
+	this.Data["json"] = components.ResponseData{Code: 200, Success: true, Data: id}
 
 	this.ServeJson()
 

@@ -6,8 +6,8 @@ import (
 
 type User struct {
 	Id       int
-	Name     string
-	Email    string
+	Name     string `valid:"Required;Match(/^Bee.*/)"`
+	Email    string `valid:"Email; MaxSize(100)"`
 	Password string
 }
 
