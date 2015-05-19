@@ -14,27 +14,9 @@ function AuthController($scope,ValidationService) {
 		}
 	}
 
-	$scope.addUser = addUser;
+	$scope.addUser = addUser;	
 
-	function getErrors(error,patternName) {
-		//console.log(error)
-		if (angular.isDefined(error)) {
-			if (error.required) {
-				return 'This field is required';
-			} else if (error.pattern) {
-				return 'Enter valid ' + patternName;
-			} else if (error.minlength) {
-				return 'The field should contain at least 6 characters';
-			} else if (error.compareTo) {
-				return 'Confirm the value';
-			}
-
-
-		}
-	}
-
-	$scope.getErrors = getErrors;
-
+	$scope.getErrors = ValidationService.getErrors;
 	
 }
 
