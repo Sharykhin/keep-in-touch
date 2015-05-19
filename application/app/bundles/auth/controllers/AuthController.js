@@ -1,7 +1,5 @@
 'use strict';		
 
-
-
 function AuthController($scope,ValidationService) {
 
 	$scope.matchEmail = ValidationService.patterns.email;	

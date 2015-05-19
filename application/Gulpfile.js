@@ -18,7 +18,7 @@ gulp.task('lint', function() {
   gulp.src('./app/bundles/auth/**/*.js')
   .pipe(jshint())
   // You can look into pretty reporters as well, but that's another story
-  .pipe(jshint.reporter('default'));
+  .pipe(jshint.reporter('jshint-stylish'));
 });
 
 // Browserify task
