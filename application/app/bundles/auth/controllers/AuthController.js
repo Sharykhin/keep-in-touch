@@ -6,30 +6,26 @@ function AuthController($scope,ValidationService,$http) {
 
 	$scope.showErrors = false;
 
-	function addUser(user) {
-		console.log($scope.userForm.name.$error);
+	function addUser(user) {		
 		if ($scope.userForm.$invalid) {
 				$scope.showErrors = true;
 				return false;
-		}
-		console.log(user);
+		}		
 		$http.post('http://localhost:9090/users',user,{
         	headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}        	
     	})
-			.success(function(data,status,headers,config){
-				console.log(data)
+			.success(function(data,status,headers,config){	
+				$scope.showErrors = false;			
 				if (data.success === false) {
-					$scope.userForm.name.$invalid=true;
-					$scope.userForm.name.$error={required:true};
-					$scope.showErrors = true;
-				} else {
-					$scope.showErrors = false;
-				}
+					if (angular.isDefined(data.errors.validation)) {
+						ValidationService.compare($scope.userForm,data.errors.validation);					
+						$scope.showErrors = true;	
+					}					
+				} 
 
 			})
 			.error(function(data, status, headers, config) {
-				console.log("ERROR");
-			    console.log(data)
+				throw "Error with http request: " + data;
 			});
 
 	}

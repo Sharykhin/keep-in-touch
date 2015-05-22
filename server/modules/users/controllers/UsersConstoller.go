@@ -41,14 +41,17 @@ func (this *UsersController) Post() {
 	}
 
 	if !isValid {
+		errorResponse := make(map[string]interface{})
 		validationErrors := make(map[string]string)
 		for _, err := range valid.Errors {
 			validationErrors[err.Key] = err.Message
 			log.Println(err.Key, err.Message)
 		}
+		errorResponse["validation"] = validationErrors
 
-		this.Data["json"] = components.ResponseData{Code: 200, Success: false, Errors: validationErrors}
+		this.Data["json"] = components.ResponseData{Code: 200, Success: false, Errors: errorResponse}
 		this.ServeJson()
+		return
 	}
 	// Make insert request
 	id, err := o.Insert(user)
