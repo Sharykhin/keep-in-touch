@@ -7,6 +7,7 @@ function AuthController($scope,ValidationService,$http) {
 	$scope.showErrors = false;
 
 	function addUser(user) {
+		console.log($scope.userForm.name.$error);
 		if ($scope.userForm.$invalid) {
 				$scope.showErrors = true;
 				return false;
@@ -18,7 +19,11 @@ function AuthController($scope,ValidationService,$http) {
 			.success(function(data,status,headers,config){
 				console.log(data)
 				if (data.success === false) {
-
+					$scope.userForm.name.$invalid=true;
+					$scope.userForm.name.$error={required:true};
+					$scope.showErrors = true;
+				} else {
+					$scope.showErrors = false;
 				}
 
 			})

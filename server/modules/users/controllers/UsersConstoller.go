@@ -34,7 +34,7 @@ func (this *UsersController) Post() {
 		this.ServeJson()
 		beego.Error(err)
 	}
-
+	// check if user is valid (rule is writtern in model)
 	isValid, err := valid.Valid(user)
 	if err != nil {
 		beego.Error(err)

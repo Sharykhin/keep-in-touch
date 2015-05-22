@@ -18,8 +18,7 @@ function progressBarDirective(_) {
 				var names = [];
 				var step = (100 / parseInt(scope.fields,10));
 				
-				form.on('change',function(event){
-					console.log(names);	
+				form.on('change',function(event){					
 					// Take field name
 					fieldName = event.target.name;
 					// Check if this field alredy exists in names array
