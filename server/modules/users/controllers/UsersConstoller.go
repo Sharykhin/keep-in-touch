@@ -32,7 +32,6 @@ func (this *UsersController) Post() {
 	// Convert json
 	if err := json.Unmarshal(data, &user); err != nil {
 		this.Data["json"] = components.ResponseData{Code: 500, Errors: err.Error()}
-
 		this.ServeJson()
 		beego.Error(err)
 	}
@@ -42,6 +41,7 @@ func (this *UsersController) Post() {
 		beego.Error(err)
 	}
 
+	// @TODO: it should be moved to the independent service
 	if !isValid {
 		//create map with validation errors
 		errorResponse := make(map[string]interface{})
