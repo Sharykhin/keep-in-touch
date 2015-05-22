@@ -3,28 +3,28 @@
 function ValidationService () {
 	var patterns = {};
 
-	patterns.email = new RegExp("^[a-zA-Z0-9_\.]{1,20}@[a-zA-Z0-9_]{1,20}\.[a-z]{2,4}$");
+	patterns.email = new RegExp('^[a-zA-Z0-9_\.]{1,20}@[a-zA-Z0-9_]{1,20}\.[a-z]{2,4}$');
 
 	var messager = {
-		"required" : function (rule, message) {
+		'required' : function (rule, message) {
 			return message || 'This field is required';
 		},
-		"pattern": function (rule, message) {
+		'pattern': function (rule, message) {
 			var rule = angular.isDefined(rule) ? rule : {pattern:'value'};
 			return message || 'Enter valid ' + rule.pattern;
 		},
-		"minlength": function (rule, message) {
+		'minlength': function (rule, message) {
 			var rule = angular.isDefined(rule) ? rule : {minlength:8};				
 			return message || 'The field should contain at least ' + rule.minlength +' characters';
 		},
-		"compareTo": function (rule, message) {
+		'compareTo': function (rule, message) {
 			var rule = angular.isDefined(rule) ? rule : {compareTo:'password'};
 			return message || 'Confirm the ' + rule.compareTo;
 		},
-		"email" : function (rule, message) {
+		'email' : function (rule, message) {
 			return message || 'Enter valid email';
 		},
-		"serverValidation": function (rule,message) {
+		'serverValidation': function (rule,message) {
 			return message || 'Enter valid value';
 		}
 	}; 
@@ -34,7 +34,7 @@ function ValidationService () {
 		if (angular.isDefined(error)) {
 			var errorMessage;
 			angular.forEach(error, function(value, key){				
-				var message = message || ((key == "serverValidation") ? value : undefined) || undefined;				
+				var message = message || ((key === 'serverValidation') ? value : undefined) || undefined;				
 				errorMessage = messager[key](rule,message);	
 			});
 			return errorMessage;
@@ -44,9 +44,8 @@ function ValidationService () {
 	function compare(form,errors) {
 		
 		angular.forEach(errors, function(value, key) {
-		  var fieldRule = key.split(".");
-	      var fieldName = fieldRule[0].toLowerCase();
-	      var rule = fieldRule[1].toLowerCase();
+		  var fieldRule = key.split('.');
+	      var fieldName = fieldRule[0].toLowerCase();	      
 	      if (angular.isDefined(form[fieldName])) { 
 	      	var elem = form[fieldName];
 	      	elem.$invalid=true;  
@@ -63,4 +62,4 @@ function ValidationService () {
 	};
 }
 
-module.exports = ValidationService
+module.exports = ValidationService;
