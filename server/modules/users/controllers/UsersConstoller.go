@@ -56,6 +56,7 @@ func (this *UsersController) Post() {
 		this.ServeJson()
 		return
 	}
+	// Encrypt password by using sha512
 	h := sha512.New()
 	h.Write([]byte(user.Password))
 	hashedPassword := hex.EncodeToString(h.Sum(nil))
