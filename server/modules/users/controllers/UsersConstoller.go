@@ -1,6 +1,8 @@
 package controllers
 
 import (
+	"crypto/sha512"
+	"encoding/hex"
 	"encoding/json"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
@@ -41,6 +43,7 @@ func (this *UsersController) Post() {
 	}
 
 	if !isValid {
+		//create map with validation errors
 		errorResponse := make(map[string]interface{})
 		validationErrors := make(map[string]string)
 		for _, err := range valid.Errors {
@@ -53,6 +56,10 @@ func (this *UsersController) Post() {
 		this.ServeJson()
 		return
 	}
+	h := sha512.New()
+	h.Write([]byte(user.Password))
+	hashedPassword := hex.EncodeToString(h.Sum(nil))
+	user.Password = hashedPassword
 	// Make insert request
 	id, err := o.Insert(user)
 	if err != nil {
