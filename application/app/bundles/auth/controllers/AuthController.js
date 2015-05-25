@@ -14,7 +14,8 @@ function AuthController($scope,ValidationService,$http) {
 		$http.post('http://localhost:9090/users',user,{
         	headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}        	
     	})
-			.success(function(data,status,headers,config){	
+			.success(function(data,status,headers,config){
+				console.log(data)	
 				$scope.showErrors = false;			
 				if (data.success === false) {
 					if (angular.isDefined(data.errors.validation)) {
