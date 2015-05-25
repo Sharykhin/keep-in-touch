@@ -5,10 +5,10 @@ import (
 )
 
 type User struct {
-	Id       int    `valid:"-" json:"id"`
+	Id       int    `json:"id"`
 	Name     string `valid:"Required;Match(/^Bee.*/)" json:"name"`
 	Email    string `valid:"Email; MaxSize(100)" json:"email"`
-	Password string `valid:"-" json:"password"`
+	Password string `json:"password"`
 }
 
 func init() {

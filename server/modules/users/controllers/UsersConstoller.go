@@ -9,7 +9,7 @@ import (
 	"github.com/astaxie/beego/validation"
 	"keep-in-touch/server/components"
 	userModel "keep-in-touch/server/modules/users/models"
-	"log"
+	services "keep-in-touch/server/services"
 )
 
 type UsersController struct {
@@ -31,9 +31,12 @@ func (this *UsersController) Post() {
 	user := new(userModel.User)
 	// Initialize validation
 	valid := validation.Validation{}
+	//Initialzie error service
+	var errorService services.ErrorService
+
 	// Convert json to struct
 	if err := json.Unmarshal(data, &user); err != nil {
-		this.Data["json"] = components.ResponseData{Code: 500, Errors: err.Error()}
+		this.Data["json"] = errorService.ServerError(err)
 		this.ServeJson()
 		beego.Error(err)
 		return
@@ -46,16 +49,13 @@ func (this *UsersController) Post() {
 
 	//@TODO: error response shpuld be moved to independen service
 	if err == orm.ErrMultiRows {
-		this.Data["json"] = components.ResponseData{Code: 500, Success: false, Errors: err.Error()}
+		this.Data["json"] = errorService.ServerError(err)
 		this.ServeJson()
-		beego.Error(err.Error())
 		return
 	}
 	// If user exists, show error message
 	if err != orm.ErrNoRows {
-		errorResponse := make(map[string]interface{})
-		errorResponse["validation"] = map[string]string{"email": "The current email already exists"}
-		this.Data["json"] = components.ResponseData{Code: 200, Success: false, Errors: errorResponse}
+		this.Data["json"] = errorService.ValidationCustomErrors(map[string]string{"email": "The current email already exists"})
 		this.ServeJson()
 		return
 	}
@@ -63,21 +63,15 @@ func (this *UsersController) Post() {
 	// check if user is valid (rule is writtern in model)
 	isValid, err := valid.Valid(user)
 	if err != nil {
-		beego.Error(err)
+		this.Data["json"] = errorService.ServerError(err)
+		this.ServeJson()
+		return
 	}
 
 	// @TODO: it should be moved to the independent service
 	if !isValid {
-		//create map with validation errors
-		errorResponse := make(map[string]interface{})
-		validationErrors := make(map[string]string)
-		for _, err := range valid.Errors {
-			validationErrors[err.Key] = err.Message
-			log.Println(err.Key, err.Message)
-		}
-		errorResponse["validation"] = validationErrors
 
-		this.Data["json"] = components.ResponseData{Code: 200, Success: false, Errors: errorResponse}
+		this.Data["json"] = errorService.ValidationErrors(valid)
 		this.ServeJson()
 		return
 	}
