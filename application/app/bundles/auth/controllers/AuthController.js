@@ -1,6 +1,6 @@
 'use strict';		
 
-function AuthController($scope,ValidationService,$http) {
+function AuthController($scope,ValidationService,$http,$location) {
 
 	$scope.matchEmail = ValidationService.patterns.email;	
 
@@ -22,7 +22,12 @@ function AuthController($scope,ValidationService,$http) {
 						ValidationService.compare($scope.userForm,data.errors.validation);					
 						$scope.showErrors = true;	
 					}					
-				} 
+				} else {
+					$location.path("/")
+				}
+				
+
+
 
 			})
 			.error(function(data, status, headers, config) {
@@ -31,13 +36,23 @@ function AuthController($scope,ValidationService,$http) {
 
 	}
 
+	function signIn(user) {
+		console.log(user);
+		if ($scope.userForm.$invalid) {
+			$scope.showErrors = true;
+			return false;
+		}
+	}
+
 	$scope.addUser = addUser;	
+
+	$scope.signIn = signIn;
 
 	$scope.getErrors = ValidationService.getErrors;
 	
 }
 
-AuthController.$inject=['$scope','ValidationService','$http'];
+AuthController.$inject=['$scope','ValidationService','$http','$location'];
 
 module.exports = AuthController;
 

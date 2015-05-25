@@ -42,7 +42,7 @@ func (this *UsersController) Post() {
 	// Initialize model which will be user for checking user who has the same email
 	var oldUser userModel.User
 	// Make a query
-	err = o.QueryTable("user").Filter("email", user.Email).One(&oldUser)
+	err := o.QueryTable("user").Filter("email", user.Email).One(&oldUser)
 
 	//@TODO: error response shpuld be moved to independen service
 	if err == orm.ErrMultiRows {

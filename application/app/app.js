@@ -23,7 +23,7 @@ var app = angular.module('myApp', ['underscore','ui.router','common','frontend',
   
 	  $rootScope.$on('$stateChangeStart', 
 	          function(event, toState, toParams, fromState, fromParams){ 
-	              console.log("State change");
+	              console.log("State change"); 
 	    });
 
 }]);
