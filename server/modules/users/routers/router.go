@@ -11,4 +11,5 @@ func init() {
 		ctx.Output.Header("Access-Control-Allow-Origin", "*")
 	})
 	beego.Router("/users", &controllers.UsersController{})
+	beego.Router("/sign-in", &controllers.AuthController{}, "post:SignIn")
 }
