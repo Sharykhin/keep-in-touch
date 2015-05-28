@@ -18,13 +18,16 @@ app.config(['$stateProvider','$urlRouterProvider', function($stateProvider, $url
           }           
         })        
         .state('home.list',{
-            url: "/admin",
+            url: "/admin",            
             views: {
                 'content' : {
                     templateUrl: 'bundles/frontend/views/index.html',
                     controller: 'frontend.DefaultController'
                 }
-            }           
+            },
+            data: {
+                required: true
+            }                   
         })
         .state('sign_in',{
             url: '/sign-in',

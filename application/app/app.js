@@ -19,11 +19,16 @@ underscore.factory('_', [function() {
 }]);
 
 var app = angular.module('myApp', ['underscore','ui.router','common','frontend','auth'])
-	.run(['$rootScope',function($rootScope){
+	.run(['$rootScope','UserService',function($rootScope,UserService){
   
 	  $rootScope.$on('$stateChangeStart', 
 	          function(event, toState, toParams, fromState, fromParams){ 
-	              console.log("State change"); 
+	          	if (angular.isDefined(toState.data) && angular.isDefined(toState.data.required)) {
+	          		console.log("user should be authorized");
+	          	}
+	          	  console.log(toState);
+	              console.log("State change to " + toState.name + ". URL: " + toState.url); 
+	              console.log(UserService);
 	    });
 
 }]);

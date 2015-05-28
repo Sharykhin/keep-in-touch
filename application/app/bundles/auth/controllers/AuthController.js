@@ -1,6 +1,6 @@
 'use strict';		
 
-function AuthController($scope,ValidationService,$http,$location) {
+function AuthController($scope,ValidationService,UserService,$http,$location) {
 
 	$scope.matchEmail = ValidationService.patterns.email;	
 
@@ -37,6 +37,7 @@ function AuthController($scope,ValidationService,$http,$location) {
 	}
 
 	function signIn(user) {
+		console.log(UserService);
 		$scope.FlashMessage=null
 		if ($scope.userForm.$invalid) {
 			$scope.showErrors = true;
@@ -57,6 +58,8 @@ function AuthController($scope,ValidationService,$http,$location) {
 						$scope.FlashMessage = data.errors
 					}					
 				} else {
+					UserService.isLogged=true
+					UserService.username=data.data.name;
 					//$location.path("/")
 				}
 				
@@ -79,7 +82,7 @@ function AuthController($scope,ValidationService,$http,$location) {
 	
 }
 
-AuthController.$inject=['$scope','ValidationService','$http','$location'];
+AuthController.$inject=['$scope','ValidationService','UserService','$http','$location'];
 
 module.exports = AuthController;
 
