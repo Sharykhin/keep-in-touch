@@ -3,6 +3,7 @@
 	<div class="col-md-8">
 		<fieldset>
 		<legend>Sign In</legend>
+		 <div ng-show="FlashMessage" class="alert alert-danger" role="alert">{{FlashMessage}}</div>
 		<form name="userForm" novalidate ng-submit="signIn(user)">
 		  <div class="form-group" ng-class="userForm.email.$invalid && showErrors ? 'has-error' : ''">
 		    <label for="exampleInputEmail1">Username | Email address</label>

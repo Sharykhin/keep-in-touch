@@ -10,6 +10,7 @@ import (
 	userModel "keep-in-touch/server/modules/users/models"
 	services "keep-in-touch/server/services"
 	"log"
+	"strings"
 )
 
 type AuthController struct {
@@ -37,8 +38,8 @@ func (this *AuthController) SignIn() {
 
 	//Apply validation rules to the received data
 	valid := validation.Validation{}
-	valid.Email(user.Email, "email")
-	valid.MinSize(user.Password, 6, "password")
+	valid.Email(strings.TrimSpace(user.Email), "email")
+	valid.Required(strings.TrimSpace(user.Password), "password")
 
 	if valid.HasErrors() {
 		this.Data["json"] = errorService.ValidationErrors(valid)
@@ -59,9 +60,10 @@ func (this *AuthController) SignIn() {
 		this.ServeJson()
 		return
 	}
+
 	// If user exists, show error message
 	if err == orm.ErrNoRows {
-		this.Data["json"] = errorService.ValidationCustomErrors(map[string]string{"email": "The current email doesn't exist"})
+		this.Data["json"] = services.ResponseData{Code: 200, Success: false, Errors: "Email or password is invalid"}
 		this.ServeJson()
 		return
 	}

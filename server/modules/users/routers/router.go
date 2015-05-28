@@ -7,7 +7,7 @@ import (
 )
 
 func init() {
-	beego.InsertFilter("/users", beego.BeforeRouter, func(ctx *context.Context) {
+	beego.InsertFilter("*", beego.BeforeRouter, func(ctx *context.Context) {
 		ctx.Output.Header("Access-Control-Allow-Origin", "*")
 	})
 	beego.Router("/users", &controllers.UsersController{})
