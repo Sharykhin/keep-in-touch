@@ -18,24 +18,8 @@ underscore.factory('_', [function() {
 	return _;
 }]);
 
-var app = angular.module('myApp', ['underscore','ui.router','common','frontend','auth'])
-	.run(['$rootScope','UserService','$state',function($rootScope,UserService,$state){
-  
-	  $rootScope.$on('$stateChangeStart', 
-	          function(event, toState, toParams, fromState, fromParams){ 
-	          	if (angular.isDefined(toState.data) && angular.isDefined(toState.data.required)) {
-	          		if(UserService.isLogged === false) {
-	          			console.log($state)
-	          				$state.go('sign_in');
-	          		}
-	          	}
-	          	  //console.log(toState);
-	              //console.log("State change to " + toState.name + ". URL: " + toState.url); 
-	              //console.log(UserService);
-	    });
 
-}]);
-
+require('./middleware');
 //Include routers
 require('./routers');
 

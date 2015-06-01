@@ -59,8 +59,8 @@ function AuthController($scope,ValidationService,UserService,$http,$location) {
 					}					
 				} else {
 					UserService.isLogged=true
-					UserService.username=data.data.name;
-					//$location.path("/")
+					UserService.data=data.data;
+					$location.path("/")
 				}
 				
 

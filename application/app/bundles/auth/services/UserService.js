@@ -2,12 +2,12 @@
 
 
 function UserService() {
-	var sdo = {
+	var user = {
 		isLogged: false,
-		username: ''
+		date: {}
 	};
 
-	return sdo
+	return user
 }
 
 module.exports=UserService

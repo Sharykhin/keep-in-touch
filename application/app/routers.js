@@ -26,7 +26,7 @@ app.config(['$stateProvider','$urlRouterProvider', function($stateProvider, $url
                 }
             },
             data: {
-                required: true
+                logged: true
             }                   
         })
         .state('sign_in',{
