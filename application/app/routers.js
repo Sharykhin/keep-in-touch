@@ -1,8 +1,9 @@
 'use strict'
 var app = angular.module('myApp');
 
-app.config(['$stateProvider','$urlRouterProvider', function($stateProvider, $urlRouterProvider){
-  
+app.config(['$stateProvider','$urlRouterProvider','$httpProvider', function($stateProvider, $urlRouterProvider,$httpProvider){
+   $httpProvider.defaults.withCredentials = true;
+   
    $urlRouterProvider.otherwise("/");
 
    // Now set up the states
