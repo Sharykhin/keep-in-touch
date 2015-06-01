@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
+	"github.com/astaxie/beego/session"
 	"github.com/astaxie/beego/validation"
 	userModel "keep-in-touch/server/modules/users/models"
 	services "keep-in-touch/server/services"
@@ -13,11 +14,26 @@ import (
 	"strings"
 )
 
+var globalSessions *session.Manager
+
+func init() {
+	//Initialzie session storage
+	globalSessions, _ = session.NewManager("memory", `{"cookieName":"gosessionid", "enableSetCookie,omitempty": true, "gclifetime":3600, "maxLifetime": 3600, "secure": false, "sessionIDHashFunc": "sha1", "sessionIDHashKey": "", "cookieLifeTime": 3600, "providerConfig": ""}`)
+	go globalSessions.GC()
+}
+
 type AuthController struct {
 	beego.Controller
 }
 
+// Sign In user in the system by email and password (which hashed by sha512)
 func (this *AuthController) SignIn() {
+	// Get Session Manager
+	sess, err := globalSessions.SessionStart(this.Ctx.ResponseWriter, this.Ctx.Request)
+	if err != nil {
+		beego.Error(err)
+		return
+	}
 	// Initialize a new orm
 	o := orm.NewOrm()
 	o.Using("default")
@@ -51,8 +67,7 @@ func (this *AuthController) SignIn() {
 	h.Write([]byte(user.Password))
 	hashedPassword := hex.EncodeToString(h.Sum(nil))
 	user.Password = hashedPassword
-	log.Print(user)
-	err := o.QueryTable("user").Filter("email", user.Email).Filter("password", hashedPassword).One(&user)
+	err = o.QueryTable("user").Filter("email", user.Email).Filter("password", hashedPassword).One(&user)
 
 	if err == orm.ErrMultiRows {
 
@@ -67,9 +82,39 @@ func (this *AuthController) SignIn() {
 		this.ServeJson()
 		return
 	}
-
+	//Set user ID to session
+	sess.Set("id", user.Id)
 	// Set response data
 	this.Data["json"] = services.ResponseData{Code: 200, Success: true, Data: user}
 	this.ServeJson()
 
+}
+
+func (this *AuthController) SignOut() {
+
+	sess, err := globalSessions.SessionStart(this.Ctx.ResponseWriter, this.Ctx.Request)
+	if err != nil {
+		beego.Error(err)
+		return
+	}
+	log.Print(sess.Get("id"))
+	sess.Delete("id")
+	this.Data["json"] = services.ResponseData{Code: 200, Success: true}
+	this.ServeJson()
+
+}
+
+func (this *AuthController) CheckAuth() {
+	sess, err := globalSessions.SessionStart(this.Ctx.ResponseWriter, this.Ctx.Request)
+	if err != nil {
+		beego.Error(err)
+		return
+	}
+	if data := sess.Get("id"); data != nil {
+		this.Data["json"] = services.ResponseData{Code: 200, Success: true, Data: data}
+	} else {
+		this.Data["json"] = services.ResponseData{Code: 200, Success: false, Data: data}
+	}
+
+	this.ServeJson()
 }

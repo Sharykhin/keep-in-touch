@@ -7,7 +7,7 @@ function UserService() {
 		date: {}
 	};
 
-	return user
+	return user;
 }
 
-module.exports=UserService
+module.exports=UserService;

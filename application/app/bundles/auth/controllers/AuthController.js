@@ -1,6 +1,6 @@
 'use strict';		
 
-function AuthController($scope,ValidationService,UserService,$http,$location) {
+function AuthController($scope,ValidationService,UserService,$http,$location,$cookies) {
 
 	$scope.matchEmail = ValidationService.patterns.email;	
 
@@ -14,8 +14,7 @@ function AuthController($scope,ValidationService,UserService,$http,$location) {
 		$http.post('http://localhost:9090/users',user,{
         	headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}        	
     	})
-			.success(function(data,status,headers,config){
-				console.log(data)	
+			.success(function(data,status,headers,config){				
 				$scope.showErrors = false;			
 				if (data.success === false) {
 					if (angular.isDefined(data.errors.validation)) {
@@ -36,8 +35,7 @@ function AuthController($scope,ValidationService,UserService,$http,$location) {
 
 	}
 
-	function signIn(user) {
-		console.log(UserService);
+	function signIn(user) {		
 		$scope.FlashMessage=null
 		if ($scope.userForm.$invalid) {
 			$scope.showErrors = true;
@@ -82,7 +80,7 @@ function AuthController($scope,ValidationService,UserService,$http,$location) {
 	
 }
 
-AuthController.$inject=['$scope','ValidationService','UserService','$http','$location'];
+AuthController.$inject=['$scope','ValidationService','UserService','$http','$location','$cookies'];
 
 module.exports = AuthController;
 

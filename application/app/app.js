@@ -3,9 +3,8 @@
 //Require neccssary libraries
 require('./vendor/angular/angular'); // That's right! We can just require angular as if we were in node
 require('./vendor/angular-ui-router/release/angular-ui-router');
+require('./vendor/angular-cookies/angular-cookies')
 var _ = require('./vendor/underscore/underscore');
-
-
 
 //Requires bundles
 require('./bundles/common/index');
@@ -18,6 +17,7 @@ underscore.factory('_', [function() {
 	return _;
 }]);
 
+var app = angular.module('myApp', ['underscore','ui.router','common','frontend','auth','ngCookies']);
 
 require('./middleware');
 //Include routers
