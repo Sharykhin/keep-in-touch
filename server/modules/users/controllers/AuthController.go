@@ -4,6 +4,7 @@ import (
 	"crypto/sha512"
 	"encoding/hex"
 	"encoding/json"
+	"fmt"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
 	"github.com/astaxie/beego/session"
@@ -11,7 +12,9 @@ import (
 	userModel "keep-in-touch/server/modules/users/models"
 	services "keep-in-touch/server/services"
 	"log"
+	"net/http"
 	"strings"
+	"time"
 )
 
 var globalSessions *session.Manager
@@ -84,6 +87,13 @@ func (this *AuthController) SignIn() {
 	}
 	//Set user ID to session
 	sess.Set("id", user.Id)
+
+	h.Write([]byte(fmt.Sprint(user.Id)))
+	hashedId := hex.EncodeToString(h.Sum(nil))
+
+	expiration := time.Now().Add(365 * 24 * time.Hour)
+	cookie := http.Cookie{Name: "keepintouch", Value: hashedId, Expires: expiration}
+	http.SetCookie(this.Ctx.ResponseWriter, &cookie)
 	// Set response data
 	this.Data["json"] = services.ResponseData{Code: 200, Success: true, Data: user}
 	this.ServeJson()
@@ -99,6 +109,9 @@ func (this *AuthController) SignOut() {
 	}
 	log.Print(sess.Get("id"))
 	sess.Delete("id")
+	expiration := time.Now().Add(-1 * time.Second)
+	cookie := http.Cookie{Name: "keepintouch", Value: "", Expires: expiration}
+	http.SetCookie(this.Ctx.ResponseWriter, &cookie)
 	this.Data["json"] = services.ResponseData{Code: 200, Success: true}
 	this.ServeJson()
 

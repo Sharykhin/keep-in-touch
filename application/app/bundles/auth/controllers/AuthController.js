@@ -56,7 +56,9 @@ function AuthController($scope,ValidationService,UserService,$http,$location,$co
 						$scope.FlashMessage = data.errors
 					}					
 				} else {
-					UserService.isLogged=true
+					console.log($cookies.keepintouch);
+					UserService.isLogged=true;
+					//UserService.hash = $cookies.get('keepintouch');
 					UserService.data=data.data;
 					$location.path("/")
 				}
