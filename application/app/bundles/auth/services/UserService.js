@@ -6,6 +6,7 @@ function UserService($http,$cookieStore) {
 	var user = {
 		isLogged: false,
 		hash: null,
+		access:1,
 		data: {},
 		checkAuth: function(callback) {		
 			console.log($cookieStore)	

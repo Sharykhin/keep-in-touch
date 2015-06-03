@@ -1,9 +1,9 @@
 'use strict'
 var app = angular.module('myApp');
 
-app.config(['$stateProvider','$urlRouterProvider','$httpProvider', function($stateProvider, $urlRouterProvider,$httpProvider){
+app.config(['$stateProvider','$urlRouterProvider','$httpProvider','AccessProvider', function($stateProvider, $urlRouterProvider,$httpProvider,AccessProvider){
    $httpProvider.defaults.withCredentials = true;
-   
+   var access = AccessProvider.$get();  
    $urlRouterProvider.otherwise("/");
 
    // Now set up the states
@@ -26,9 +26,7 @@ app.config(['$stateProvider','$urlRouterProvider','$httpProvider', function($sta
                     controller: 'frontend.DefaultController'
                 }
             },
-            data: {
-                logged: true
-            }                   
+            access: access.admin                   
         })
         .state('sign_in',{
             url: '/sign-in',
@@ -37,7 +35,8 @@ app.config(['$stateProvider','$urlRouterProvider','$httpProvider', function($sta
                     templateUrl : 'bundles/auth/views/sign_in.html',
                     controller : 'auth.AuthController'
                 }
-            }
+            },
+            access: access.annon            
         })
         .state('sign_up',{
             url: '/sign-up',
@@ -45,6 +44,14 @@ app.config(['$stateProvider','$urlRouterProvider','$httpProvider', function($sta
                 'content' : {
                     templateUrl : 'bundles/auth/views/sign_up.html',
                     controller: 'auth.AuthController'
+                }
+            }
+        })
+        .state('forrbiden',{
+            views: {
+                'content': {
+                    templateUrl : 'bundles/common/views/401.html',
+                    controller : function() {}
                 }
             }
         })       

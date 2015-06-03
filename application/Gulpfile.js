@@ -11,7 +11,7 @@ var embedlr = require('gulp-embedlr'),
     express = require('express'),
     livereload = require('connect-livereload'),
     livereloadport = 35729,
-    serverport = 9000;
+    serverport = 8000;
 
 // JSHint task
 gulp.task('lint', function() {
@@ -23,6 +23,15 @@ gulp.task('lint', function() {
 
 // Browserify task
 gulp.task('browserify', function() {
+
+  gulp.src(['app/vendor.js'])
+    .pipe(browserify({
+      insertGlobals: true,
+      debug: true
+    }))
+    .pipe(concat('lib.js'))
+    .pipe(gulp.dest('dist/js'))
+
   // Single point of entry (make sure not to src ALL your files, browserify will figure it out for you)
   gulp.src(['app/app.js'])
   .pipe(browserify({
@@ -38,7 +47,7 @@ gulp.task('browserify', function() {
 // Views task
 gulp.task('copy', function() {
   //copy index.html
-  gulp.src('./app/index.html')
+  gulp.src('./app/views/*.html')
   .pipe(gulp.dest('dist/'));
 
   //copy customer css|js|img files
@@ -82,7 +91,7 @@ server.all('/*', function(req, res) {
 
 
 // Dev task
-gulp.task('dev', function() {
+gulp.task('serve', function() {
   // Start webserver
   server.listen(serverport);
   // Start live reload

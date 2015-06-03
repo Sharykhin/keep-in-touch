@@ -8,7 +8,8 @@ import (
 
 func init() {
 	beego.InsertFilter("*", beego.BeforeRouter, func(ctx *context.Context) {
-		ctx.Output.Header("Access-Control-Allow-Origin", "http://localhost:9000")
+
+		ctx.Output.Header("Access-Control-Allow-Origin", ctx.Request.Header["Origin"][0])
 		ctx.Output.Header("Access-Control-Allow-Credentials", "true")
 	})
 	beego.Router("/users", &controllers.UsersController{})
