@@ -1,4 +1,8 @@
-var app =  angular.module('myApp').run(
+'use strict';
+
+var config = require('./config');
+
+var app =  angular.module(config.name).run(
      ['$rootScope','UserService','$state','$timeout',
      function($rootScope,UserService,$state,$timeout){ 
        
