@@ -86,13 +86,19 @@ func (this *AuthController) SignIn() {
 		this.ServeJson()
 		return
 	}
+	log.Println("SING IN")
 	//Set user ID to session
-	sess.Set("id", user.Id)
-	//log.Println(sess.Get("id"))
-	log.Println(sess.SessionID())
+	sess.Set("id", fmt.Sprint(user.Id))
+	log.Println("USER ID ")
+	log.Println(user.Id)
+	sbytes := []byte(fmt.Sprint(user.Id))
+	log.Println("BYTES")
+	log.Println(sbytes)
+	log.Println("SESSIONID: " + sess.SessionID())
+	h = sha512.New()
 	h.Write([]byte(fmt.Sprint(user.Id)))
 	hashedId := hex.EncodeToString(h.Sum(nil))
-
+	log.Println("Hashed ID:" + hashedId)
 	expiration := time.Now().Add(365 * 24 * time.Hour)
 	cookie := http.Cookie{Name: "keepintouch", Value: hashedId, Expires: expiration}
 	http.SetCookie(this.Ctx.ResponseWriter, &cookie)
@@ -126,14 +132,20 @@ func (this *AuthController) CheckAuth() {
 		beego.Error(err)
 		return
 	}
+	log.Println("CHECK AUTH")
 	//log.Println(sess.SessionID())
 	id := sess.Get("id")
-	//log.Println(id)
+	log.Println("USER ID ")
+	log.Println(id)
 	h := sha512.New()
+	sbytes := []byte(fmt.Sprint(id))
+	log.Println("BYTES")
+	log.Println(sbytes)
 	h.Write([]byte(fmt.Sprint(id)))
 	sessionId := hex.EncodeToString(h.Sum(nil))
+	log.Println("Hashed ID:" + sessionId)
 	//cook := this.Ctx.Input.Cookie("gosessionid")
-	log.Println(this.Ctx.Input.Cookie("gosessionid"))
+	log.Println("SESSIONID: " + sess.SessionID())
 	hashedId := this.Ctx.Input.Cookie("keepintouch")
 	if sessionId == hashedId {
 		this.Data["json"] = services.ResponseData{Code: 200, Success: true, Data: hashedId}
@@ -142,4 +154,5 @@ func (this *AuthController) CheckAuth() {
 	}
 
 	this.ServeJson()
+	return
 }

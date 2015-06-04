@@ -11,7 +11,7 @@ var embedlr = require('gulp-embedlr'),
     express = require('express'),
     livereload = require('connect-livereload'),
     livereloadport = 35729,
-    serverport = 8000;
+    serverport = 9000;
 
 // JSHint task
 gulp.task('lint', function() {
@@ -93,7 +93,8 @@ server.all('/*', function(req, res) {
 // Dev task
 gulp.task('serve', function() {
   // Start webserver
-  server.listen(serverport);
+  server.listen(serverport); 
+  console.log('Server is started on ' + serverport);
   // Start live reload
   lrserver.listen(livereloadport);
   // Run the watch task, to keep taps on changes
