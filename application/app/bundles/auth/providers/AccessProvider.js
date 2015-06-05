@@ -1,6 +1,7 @@
 'use strict';
 
 
+
 function AccessProvider() {
 
 	function Access() { 
@@ -17,8 +18,10 @@ function AccessProvider() {
 
 	this.$get = function() {
 		return new Access();
-	}
+	};
 }
+
+
 
 module.exports = AccessProvider;
 

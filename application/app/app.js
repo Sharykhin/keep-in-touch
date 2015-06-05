@@ -10,7 +10,7 @@ var config = require('./config');
 
 var app = angular.module(config.name, ['underscore','ui.router','common','frontend','auth','ngCookies']);
 
-require('./middleware');
+require('./moddlewares/access');
 //Include routers
 require('./routers');
 

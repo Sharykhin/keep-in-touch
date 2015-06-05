@@ -15,11 +15,12 @@ app.config(['$stateProvider','$urlRouterProvider','$httpProvider','AccessProvide
                 'content' : {
                     templateUrl: 'bundles/frontend/views/index.html',
                     controller: 'frontend.DefaultController'
-            }            
-          }           
+            }
+          },
+          access: access.annon         
         })        
         .state('home.list',{
-            url: "/admin",            
+            url: "admin",            
             views: {
                 'content' : {
                     templateUrl: 'bundles/frontend/views/index.html',
