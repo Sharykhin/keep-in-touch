@@ -1,6 +1,6 @@
 'use strict';		
 
-function AuthController($scope,ValidationService,UserService,$http,$location,$cookies) {
+function AuthController($scope,ValidationService,UserService,$http,$location) {
 
 	$scope.matchEmail = ValidationService.patterns.email;	
 
@@ -55,10 +55,9 @@ function AuthController($scope,ValidationService,UserService,$http,$location,$co
 					} else {
 						$scope.FlashMessage = data.errors
 					}					
-				} else {
-					console.log($cookies.keepintouch);
-					UserService.isLogged=true;
-					//UserService.hash = $cookies.get('keepintouch');
+				} else {					
+					UserService.isLogged=true;	
+					UserService.access = 2;				
 					UserService.data=data.data;
 					$location.path("/")
 				}
@@ -82,7 +81,7 @@ function AuthController($scope,ValidationService,UserService,$http,$location,$co
 	
 }
 
-AuthController.$inject=['$scope','ValidationService','UserService','$http','$location','$cookies'];
+AuthController.$inject=['$scope','ValidationService','UserService','$http','$location'];
 
 module.exports = AuthController;
 

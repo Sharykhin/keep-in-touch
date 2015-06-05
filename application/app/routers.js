@@ -46,7 +46,7 @@ app.config(['$stateProvider','$urlRouterProvider','$httpProvider','AccessProvide
                     controller: 'auth.AuthController'
                 }
             }
-        })
+        })       
         .state('forrbiden',{
             views: {
                 'content': {

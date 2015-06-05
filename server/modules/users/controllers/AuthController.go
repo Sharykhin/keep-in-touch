@@ -13,6 +13,7 @@ import (
 	services "keep-in-touch/server/services"
 	"log"
 	"net/http"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -128,13 +129,13 @@ func (this *AuthController) SignOut() {
 
 func (this *AuthController) CheckAuth() {
 	sess, err := globalSessions.SessionStart(this.Ctx.ResponseWriter, this.Ctx.Request)
+	var id string
 	if err != nil {
 		beego.Error(err)
 		return
 	}
 	log.Println("CHECK AUTH")
-	//log.Println(sess.SessionID())
-	id := sess.Get("id")
+	id = sess.Get("id").(string)
 	log.Println("USER ID ")
 	log.Println(id)
 	h := sha512.New()
@@ -148,11 +149,20 @@ func (this *AuthController) CheckAuth() {
 	log.Println("SESSIONID: " + sess.SessionID())
 	hashedId := this.Ctx.Input.Cookie("keepintouch")
 	if sessionId == hashedId {
-		this.Data["json"] = services.ResponseData{Code: 200, Success: true, Data: hashedId}
+		userId, _ := strconv.Atoi(id)
+		user := userModel.User{Id: userId}
+		o := orm.NewOrm()
+		o.Using("default")
+		err := o.Read(&user)
+		if err != nil {
+			beego.Error(err)
+			return
+		}
+		user.Password = ""
+		this.Data["json"] = services.ResponseData{Code: 200, Success: true, Data: user}
 	} else {
 		this.Data["json"] = services.ResponseData{Code: 200, Success: false, Data: hashedId}
 	}
 
 	this.ServeJson()
-	return
 }
