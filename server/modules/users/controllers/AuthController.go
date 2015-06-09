@@ -87,19 +87,13 @@ func (this *AuthController) SignIn() {
 		this.ServeJson()
 		return
 	}
-	log.Println("SING IN")
 	//Set user ID to session
 	sess.Set("id", fmt.Sprint(user.Id))
-	log.Println("USER ID ")
-	log.Println(user.Id)
-	sbytes := []byte(fmt.Sprint(user.Id))
-	log.Println("BYTES")
-	log.Println(sbytes)
-	log.Println("SESSIONID: " + sess.SessionID())
+	// Encode user ID by using sha512
 	h = sha512.New()
 	h.Write([]byte(fmt.Sprint(user.Id)))
 	hashedId := hex.EncodeToString(h.Sum(nil))
-	log.Println("Hashed ID:" + hashedId)
+	// Set cookie with hashed user id
 	expiration := time.Now().Add(365 * 24 * time.Hour)
 	cookie := http.Cookie{Name: "keepintouch", Value: hashedId, Expires: expiration}
 	http.SetCookie(this.Ctx.ResponseWriter, &cookie)
@@ -129,25 +123,23 @@ func (this *AuthController) SignOut() {
 
 func (this *AuthController) CheckAuth() {
 	sess, err := globalSessions.SessionStart(this.Ctx.ResponseWriter, this.Ctx.Request)
-	var id string
 	if err != nil {
 		beego.Error(err)
 		return
 	}
-	log.Println("CHECK AUTH")
+
+	var id string
+	// Get user id from session storage and convet it to sting
 	id = sess.Get("id").(string)
-	log.Println("USER ID ")
-	log.Println(id)
+
+	// Get hashed value of current id by using sha512
 	h := sha512.New()
-	sbytes := []byte(fmt.Sprint(id))
-	log.Println("BYTES")
-	log.Println(sbytes)
 	h.Write([]byte(fmt.Sprint(id)))
 	sessionId := hex.EncodeToString(h.Sum(nil))
-	log.Println("Hashed ID:" + sessionId)
-	//cook := this.Ctx.Input.Cookie("gosessionid")
-	log.Println("SESSIONID: " + sess.SessionID())
+
+	// Get cookie value
 	hashedId := this.Ctx.Input.Cookie("keepintouch")
+	// If hashes are equal, user is authorized
 	if sessionId == hashedId {
 		userId, _ := strconv.Atoi(id)
 		user := userModel.User{Id: userId}
