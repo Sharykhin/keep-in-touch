@@ -16,26 +16,25 @@
 			    <label for="exampleInputEmail1">Email address</label>
 			    <input type="email" name="email" class="form-control" ng-pattern="matchEmail" required placeholder="Email address" ng-model="user.email">
 			    <div class="error" role="alert" ng-show="showErrors">
-			    		{{getErrors(userForm.email.$error,'email')}}
+			    		{{getErrors(userForm.email.$error,{pattern:'email'})}}
 			    </div>
 			  </div>
 			  <div class="form-group" ng-class="userForm.password.$invalid && showErrors ? 'has-error' : ''">
 			    <label for="exampleInputPassword1">Password</label>
 			    <input type="password" name="password" class="form-control" ng-minlength="6" required placeholder="Password" ng-model="user.password">
 			    <div class="error" ng-show="showErrors">
-			    		{{getErrors(userForm.password.$error)}}
+			    		{{getErrors(userForm.password.$error,{minlength:6})}}
 			    </div>
 			  </div>
 			   <div class="form-group" ng-class="userForm.confirm_password.$invalid && showErrors ? 'has-error' : ''">
 			    <label for="exampleInputPassword1">Confirm Password</label>
 			    <input type="password" name="confirm_password" ng-minlength="6" required class="form-control" placeholder="Confirm Password" ng-model="user.confirm_password" compare-to="user.password">
 			     <div class="error" ng-show="showErrors">
-			    		{{getErrors(userForm.confirm_password.$error)}}
+			    		{{getErrors(userForm.confirm_password.$error,{compareTo:'password',minlength:6})}}
 			    </div>			    
 			  </div>	 
 			 
-			  <button type="submit" class="btn btn-primary">Sign Up</button>
-			  {{userForm.$valid}}
+			  <button type="submit" class="btn btn-primary">Sign Up</button>			  
 			</form>
 		</fieldset>	
 	</div>

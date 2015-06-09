@@ -3,14 +3,21 @@
 	<div class="col-md-8">
 		<fieldset>
 		<legend>Sign In</legend>
-		<form method="action" action="">
-		  <div class="form-group">
+		 <div ng-show="FlashMessage" class="alert alert-danger" role="alert">{{FlashMessage}}</div>
+		<form name="userForm" novalidate ng-submit="signIn(user)">
+		  <div class="form-group" ng-class="userForm.email.$invalid && showErrors ? 'has-error' : ''">
 		    <label for="exampleInputEmail1">Username | Email address</label>
-		    <input type="email" class="form-control" placeholder="Username">
+		    <input type="email" name="email" required ng-pattern="matchEmail" class="form-control" ng-model="user.email" placeholder="Username">
+		    <div class="error" role="alert" ng-show="showErrors">
+	    		{{getErrors(userForm.email.$error,{pattern:'email'})}}
+		    </div>
 		  </div>
-		  <div class="form-group">
+		  <div class="form-group" ng-class="userForm.password.$invalid && showErrors ? 'has-error' : ''">
 		    <label for="exampleInputPassword1">Password</label>
-		    <input type="password" class="form-control" placeholder="Password">
+		    <input type="password" name="password" required class="form-control" ng-model="user.password" placeholder="Password">
+		    <div class="error" ng-show="showErrors">
+	    		{{getErrors(userForm.password.$error)}}
+		    </div>	
 		  </div>		 
 		  <div class="checkbox">
 		    <label>

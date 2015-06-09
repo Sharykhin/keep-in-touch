@@ -4,7 +4,7 @@
 
 start() {
 	cd application
-	gulp serve &
+	gulp dev &
 	cd ../server
 	bee run &	
 	
@@ -12,7 +12,7 @@ start() {
 
 stop() {
 	echo "Stopping server..."
-	kill -9 `ps -ef | grep "gulp-live-server" | grep -v "grep" | awk '{print $2}'`
+	kill -9 `ps -ef | grep "gulp" | grep -v "grep" | awk '{print $2}'`
 	kill -9 `ps -ef | grep "./server" | grep -v "grep" | awk '{print $2}'`
 	echo "Server has been stopped"	
 }

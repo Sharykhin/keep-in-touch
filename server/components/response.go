@@ -1,12 +1,8 @@
 package components
 
 type ResponseData struct {
-	Code   int
-	Data   interface{}
-	Errors []ErrorData
-}
-
-type ErrorData struct {
-	Type    string
-	Message string
+	Code    int         `json:"code"`
+	Success bool        `json:"success"`
+	Data    interface{} `json:"data"`
+	Errors  interface{} `json:"errors"`
 }
