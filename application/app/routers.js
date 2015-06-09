@@ -1,7 +1,8 @@
 'use strict'
 var app = angular.module('myApp');
 
-app.config(['$stateProvider','$urlRouterProvider','$httpProvider','AccessProvider', function($stateProvider, $urlRouterProvider,$httpProvider,AccessProvider){
+app.config(['$stateProvider','$urlRouterProvider','$httpProvider','AccessProvider', 
+            function($stateProvider, $urlRouterProvider,$httpProvider,AccessProvider){
    $httpProvider.defaults.withCredentials = true;
    var access = AccessProvider.$get();  
    $urlRouterProvider.otherwise("/");
@@ -55,6 +56,23 @@ app.config(['$stateProvider','$urlRouterProvider','$httpProvider','AccessProvide
                     controller : function() {}
                 }
             }
+        })
+        .state('sign_out',{
+            url:'/sign-out',
+            views: {
+                'content' : {
+                    controller: function(UserService,AuthService,$state) {   
+                            if (UserService.isLogged === false) {
+                                $state.go('home');
+                                return;
+                            }                     
+                            AuthService.signOut(function(data,status,headers,config) {
+                                $state.go('home'); 
+                            });
+                     }
+                }
+            },           
+            access: access.annon   
         })       
 
 }]);

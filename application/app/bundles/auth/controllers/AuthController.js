@@ -1,6 +1,6 @@
 'use strict';		
 
-function AuthController($scope,ValidationService,UserService,$http,$location) {
+function AuthController($scope,ValidationService,UserService,$http,$location,AuthService) {
 
 	$scope.matchEmail = ValidationService.patterns.email;	
 
@@ -71,17 +71,18 @@ function AuthController($scope,ValidationService,UserService,$http,$location) {
 			});
 
 
-	}
+	}	
 
 	$scope.addUser = addUser;	
 
 	$scope.signIn = signIn;
 
+
 	$scope.getErrors = ValidationService.getErrors;
 	
 }
 
-AuthController.$inject=['$scope','ValidationService','UserService','$http','$location'];
+AuthController.$inject=['$scope','ValidationService','UserService','$http','$location','AuthService'];
 
 module.exports = AuthController;
 
