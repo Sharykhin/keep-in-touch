@@ -8,15 +8,14 @@ var app =  angular.module(config.name).run(
        
 	  $rootScope.$on('$stateChangeStart', 
           function(event, toState, toParams, fromState, fromParams){                             
-            console.log(UserService);   
-            console.log(AccessService.checkAccess(toState))   ;
+            console.log(UserService);              
            // If user doen't have access show forrbiden page
-           if (AccessService.checkAccess(toState) === false) {
-             
-               $rootScope.$evalAsync(function(){
+           AccessService.checkAccess(toState, function(isAccess){
+              if (isAccess === false) {
+                $rootScope.$evalAsync(function(){
                   $state.go('forrbiden');    
                }); 
-           }          
-
+              }
+           });
 	    });
 }]);

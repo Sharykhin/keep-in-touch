@@ -10,7 +10,7 @@ function AccessService($state,UserService) {
 		return hasAccess;
 	}
 
-	var _checkAccess = function (toState) {
+	var _checkAccess = function (toState, callback) {
 		
 		if (angular.isDefined(toState.access)) {
 			
@@ -23,14 +23,14 @@ function AccessService($state,UserService) {
                         if (data.success === true) {
 
 	                        if (_hasAccess(toState) === false) {
-	                        	return false;	                         	
+	                        	callback(false);		                         	
                        		} else {
-                       			return true;
+                       			callback(true);	
                        		}                            
                          }                                                       
                     });      
 				} else {
-					return false;
+					callback(false);					
 				}
 				
 			}
