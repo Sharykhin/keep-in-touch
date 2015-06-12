@@ -1,8 +1,6 @@
 package controllers
 
 import (
-	"crypto/sha512"
-	"encoding/hex"
 	"encoding/json"
 	"fmt"
 	"github.com/astaxie/beego"
@@ -48,6 +46,8 @@ func (this *AuthController) SignIn() {
 	data := this.Ctx.Input.RequestBody
 	//Initialzie error service
 	var errorService services.ErrorService
+	// Initialize enctyprion service
+	var encryptService services.EnctyptionService
 
 	//Convert json to struct
 	if err := json.Unmarshal(data, &user); err != nil {
@@ -67,11 +67,10 @@ func (this *AuthController) SignIn() {
 		this.ServeJson()
 		return
 	}
-	// @TODO: create a service to work with crypto
-	h := sha512.New()
-	h.Write([]byte(user.Password))
-	hashedPassword := hex.EncodeToString(h.Sum(nil))
+	// Encode password by using sha512
+	hashedPassword := encryptService.EncryptString(user.Password, "sha512")
 	user.Password = hashedPassword
+	log.Println(hashedPassword)
 	err = o.QueryTable("user").Filter("email", user.Email).Filter("password", hashedPassword).One(&user)
 
 	if err == orm.ErrMultiRows {
@@ -90,9 +89,7 @@ func (this *AuthController) SignIn() {
 	//Set user ID to session
 	sess.Set("id", fmt.Sprint(user.Id))
 	// Encode user ID by using sha512
-	h = sha512.New()
-	h.Write([]byte(fmt.Sprint(user.Id)))
-	hashedId := hex.EncodeToString(h.Sum(nil))
+	hashedId := encryptService.EncryptString(fmt.Sprint(user.Id), "sha512")
 	// Set cookie with hashed user id
 	expiration := time.Now().Add(365 * 24 * time.Hour)
 	cookie := http.Cookie{Name: "keepintouch", Value: hashedId, Expires: expiration}
@@ -128,14 +125,15 @@ func (this *AuthController) CheckAuth() {
 		return
 	}
 
+	// Initialize enctyprion service
+	var encryptService services.EnctyptionService
+
 	var id string
 	// Get user id from session storage and convet it to sting
 	id = sess.Get("id").(string)
 
 	// Get hashed value of current id by using sha512
-	h := sha512.New()
-	h.Write([]byte(fmt.Sprint(id)))
-	sessionId := hex.EncodeToString(h.Sum(nil))
+	sessionId := encryptService.EncryptString(fmt.Sprint(id), "sha512")
 
 	// Get cookie value
 	hashedId := this.Ctx.Input.Cookie("keepintouch")
