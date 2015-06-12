@@ -1,14 +1,17 @@
 'use strict';		
 
 function AuthController($scope,ValidationService,UserService,$http,$location,AuthService) {
-
+	/* jshint validthis: true */
 	var vm = this;
 
 	vm.matchEmail = ValidationService.patterns.email;	
 
 	vm.showErrors = false;
 
-	function addUser(user) {		
+	vm.addUser = addUser;	
+
+	function addUser(user) {	
+		console.log(user)	;
 		if ($scope.userForm.$invalid) {
 				$scope.showErrors = true;
 				return false;
@@ -75,7 +78,7 @@ function AuthController($scope,ValidationService,UserService,$http,$location,Aut
 
 	}	
 
-	vm.addUser = addUser;	
+	
 
 	$scope.signIn = signIn;
 
