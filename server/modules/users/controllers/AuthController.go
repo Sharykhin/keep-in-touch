@@ -70,7 +70,7 @@ func (this *AuthController) SignIn() {
 	// Encode password by using sha512
 	hashedPassword := encryptService.EncryptString(user.Password, "sha512")
 	user.Password = hashedPassword
-	log.Println(hashedPassword)
+	// Find user by email and password
 	err = o.QueryTable("user").Filter("email", user.Email).Filter("password", hashedPassword).One(&user)
 
 	if err == orm.ErrMultiRows {
@@ -107,8 +107,9 @@ func (this *AuthController) SignOut() {
 		beego.Error(err)
 		return
 	}
-	//log.Print(sess.Get("id"))
+
 	log.Println(sess.SessionID())
+	// Delete session value and cookie to sign out user
 	sess.Delete("id")
 	expiration := time.Now().Add(-1 * time.Second)
 	cookie := http.Cookie{Name: "keepintouch", Value: "", Expires: expiration}
@@ -139,6 +140,7 @@ func (this *AuthController) CheckAuth() {
 	hashedId := this.Ctx.Input.Cookie("keepintouch")
 	// If hashes are equal, user is authorized
 	if sessionId == hashedId {
+		// Convert id to int such as in User struct id has int type
 		userId, _ := strconv.Atoi(id)
 		user := userModel.User{Id: userId}
 		o := orm.NewOrm()

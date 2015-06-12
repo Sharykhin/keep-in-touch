@@ -1,8 +1,6 @@
 package controllers
 
 import (
-	"crypto/sha512"
-	"encoding/hex"
 	"encoding/json"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
@@ -32,6 +30,8 @@ func (this *UsersController) Post() {
 	valid := validation.Validation{}
 	//Initialzie error service
 	var errorService services.ErrorService
+	// Initialize enctyprion service
+	var encryptService services.EnctyptionService
 
 	// Convert json to struct
 	if err := json.Unmarshal(data, &user); err != nil {
@@ -46,7 +46,6 @@ func (this *UsersController) Post() {
 	// Make a query
 	err := o.QueryTable("user").Filter("email", user.Email).One(&oldUser)
 
-	//@TODO: error response shpuld be moved to independen service
 	if err == orm.ErrMultiRows {
 		this.Data["json"] = errorService.ServerError(err)
 		this.ServeJson()
@@ -67,17 +66,15 @@ func (this *UsersController) Post() {
 		return
 	}
 
-	// @TODO: it should be moved to the independent service
 	if !isValid {
 
 		this.Data["json"] = errorService.ValidationErrors(valid)
 		this.ServeJson()
 		return
 	}
+
 	// Encrypt password by using sha512
-	h := sha512.New()
-	h.Write([]byte(user.Password))
-	hashedPassword := hex.EncodeToString(h.Sum(nil))
+	hashedPassword := encryptService.EncryptString(user.Password, "sha512")
 	user.Password = hashedPassword
 	// Make insert request
 	id, err := o.Insert(user)
