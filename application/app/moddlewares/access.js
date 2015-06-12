@@ -5,7 +5,7 @@ var config = require('./../config');
 var app =  angular.module(config.name).run(
      ['$rootScope','UserService','AccessService','$state','$timeout',
      function($rootScope,UserService,AccessService,$state,$timeout){ 
-       
+    console.log($state)   ;
 	  $rootScope.$on('$stateChangeStart', 
           function(event, toState, toParams, fromState, fromParams){                             
             console.log(UserService);              

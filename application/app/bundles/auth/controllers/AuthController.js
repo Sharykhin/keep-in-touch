@@ -2,9 +2,11 @@
 
 function AuthController($scope,ValidationService,UserService,$http,$location,AuthService) {
 
-	$scope.matchEmail = ValidationService.patterns.email;	
+	var vm = this;
 
-	$scope.showErrors = false;
+	vm.matchEmail = ValidationService.patterns.email;	
+
+	vm.showErrors = false;
 
 	function addUser(user) {		
 		if ($scope.userForm.$invalid) {
@@ -73,12 +75,13 @@ function AuthController($scope,ValidationService,UserService,$http,$location,Aut
 
 	}	
 
-	$scope.addUser = addUser;	
+	vm.addUser = addUser;	
 
 	$scope.signIn = signIn;
 
 
-	$scope.getErrors = ValidationService.getErrors;
+	vm.getErrors = ValidationService.getErrors;
+	
 	
 }
 

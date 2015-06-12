@@ -35,7 +35,7 @@ app.config(['$stateProvider','$urlRouterProvider','$httpProvider','AccessProvide
             views: {
                 'content' : {
                     templateUrl : 'bundles/auth/views/sign_in.html',
-                    controller : 'auth.AuthController'
+                    controller : 'auth.AuthController'                    
                 }
             },
             access: access.annon            
@@ -45,7 +45,7 @@ app.config(['$stateProvider','$urlRouterProvider','$httpProvider','AccessProvide
             views : {
                 'content' : {
                     templateUrl : 'bundles/auth/views/sign_up.html',
-                    controller: 'auth.AuthController'
+                    controller: 'auth.AuthController as authCtrl'
                 }
             }
         })       
