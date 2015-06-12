@@ -4,11 +4,13 @@ function AuthController($scope,ValidationService,UserService,$http,$location,Aut
 	/* jshint validthis: true */
 	var vm = this;
 
-	vm.matchEmail = ValidationService.patterns.email;	
+	$scope.matchEmail = ValidationService.patterns.email;	
 
-	vm.showErrors = false;
+	$scope.showErrors = false;
 
-	vm.addUser = addUser;	
+	$scope.addUser = addUser;	
+
+	$scope.signIn = signIn;
 
 	function addUser(user) {	
 		console.log(user)	;
@@ -27,7 +29,7 @@ function AuthController($scope,ValidationService,UserService,$http,$location,Aut
 						$scope.showErrors = true;	
 					}					
 				} else {
-					$location.path("/")
+					$location.path('/');
 				}
 				
 
@@ -35,13 +37,13 @@ function AuthController($scope,ValidationService,UserService,$http,$location,Aut
 
 			})
 			.error(function(data, status, headers, config) {
-				throw "Error with http request: " + data;
+				throw 'Error with http request: ' + data;
 			});
 
 	}
 
 	function signIn(user) {		
-		$scope.FlashMessage=null
+		$scope.FlashMessage=null;
 		if ($scope.userForm.$invalid) {
 			$scope.showErrors = true;
 			return false;
@@ -58,13 +60,13 @@ function AuthController($scope,ValidationService,UserService,$http,$location,Aut
 						ValidationService.compare($scope.userForm,data.errors.validation);					
 						$scope.showErrors = true;	
 					} else {
-						$scope.FlashMessage = data.errors
+						$scope.FlashMessage = data.errors;
 					}					
 				} else {					
 					UserService.isLogged=true;	
 					UserService.access = 2;				
 					UserService.data=data.data;
-					$location.path("/")
+					$location.path('/');
 				}
 				
 
@@ -72,18 +74,13 @@ function AuthController($scope,ValidationService,UserService,$http,$location,Aut
 
 			})
 			.error(function(data, status, headers, config) {
-				throw "Error with http request: " + data;
+				throw 'Error with http request: ' + data;
 			});
 
 
 	}	
 
-	
-
-	$scope.signIn = signIn;
-
-
-	vm.getErrors = ValidationService.getErrors;
+	$scope.getErrors = ValidationService.getErrors;
 	
 	
 }
