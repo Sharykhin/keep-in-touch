@@ -61,21 +61,11 @@ app.config(['$stateProvider','$urlRouterProvider','$httpProvider','AccessProvide
             url:'/sign-out',                       
             views: {                 
                 'content' : {  
-                    controllerProvider: function() {
-                                return 'Auth.SignOut';
-                    }                    
+                    controller: 'auth.SighOutController'                                      
                 }
             },           
             access: access.annon   
         })       
 
-}])
-.controller('Auth.SignOut',['UserService','AuthService','$state',function(UserService,AuthService,$state){
-    if (UserService.isLogged === false) {
-        $state.go('home');
-        return; 
-    }                      
-    AuthService.signOut(function(data,status,headers,config) {
-        $state.go('home'); 
-    });  
 }]);
+
