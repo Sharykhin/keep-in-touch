@@ -1,6 +1,6 @@
 'use strict';		
 
-function AuthController($scope,ValidationService,UserService,$http,$location,AuthService) {
+function AuthController($scope,ValidationService,UserService,$http,$location,AuthService,Access) {
 	/* jshint validthis: true */
 	var vm = this;
 
@@ -64,7 +64,7 @@ function AuthController($scope,ValidationService,UserService,$http,$location,Aut
 					}					
 				} else {					
 					UserService.isLogged=true;	
-					UserService.access = 2;				
+					UserService.access = Access.admin;				
 					UserService.data=data.data;
 					$location.path('/');
 				}
@@ -85,7 +85,7 @@ function AuthController($scope,ValidationService,UserService,$http,$location,Aut
 	
 }
 
-AuthController.$inject=['$scope','ValidationService','UserService','$http','$location','AuthService'];
+AuthController.$inject=['$scope','ValidationService','UserService','$http','$location','AuthService','Access'];
 
 module.exports = AuthController;
 

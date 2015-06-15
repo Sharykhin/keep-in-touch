@@ -32,9 +32,8 @@ function AccessService($state,UserService,AuthService) {
                     });      
 				} else {
 					callback(false);					
-				}
-				
-			}
+				}				
+			} 
 		}		
 	};
 
