@@ -15,7 +15,7 @@ var embedlr = require('gulp-embedlr'),
 
 // JSHint task
 gulp.task('lint', function() {
-  gulp.src('./app/bundles/auth/controllers/*.js')
+  gulp.src('./app/bundles/auth/services/AuthService.js')
   .pipe(jshint())
   // You can look into pretty reporters as well, but that's another story
   .pipe(jshint.reporter('jshint-stylish'));

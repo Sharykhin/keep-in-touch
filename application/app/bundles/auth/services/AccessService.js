@@ -1,8 +1,8 @@
 'use strict';
 
-AccessService.$inject=['$state','UserService'];
+AccessService.$inject=['$state','UserService','AuthService'];
 
-function AccessService($state,UserService) {
+function AccessService($state,UserService,AuthService) {
 	var vm = this;
 
 	var _hasAccess = function(toState) {
@@ -11,14 +11,14 @@ function AccessService($state,UserService) {
 	}
 
 	var _checkAccess = function (toState, callback) {
-		
+		console.log('Access: ' + _hasAccess(toState));
 		if (angular.isDefined(toState.access)) {
 			
 			if (_hasAccess(toState) === false) {
 
 				if (UserService.isLogged === false) {
 
-					UserService.checkAuth(function(data) {                               
+					AuthService.checkAuth(function(data) {                               
                                 
                         if (data.success === true) {
 
@@ -27,7 +27,9 @@ function AccessService($state,UserService) {
                        		} else {
                        			callback(true);	
                        		}                            
-                         }                                                       
+                        } else {
+                        	callback(false);
+                        }                                                       
                     });      
 				} else {
 					callback(false);					

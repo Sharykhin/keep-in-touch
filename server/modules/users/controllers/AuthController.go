@@ -130,6 +130,11 @@ func (this *AuthController) CheckAuth() {
 	var encryptService services.EnctyptionService
 
 	var id string
+	if ok := sess.Get("id"); ok == nil {
+		this.Data["json"] = services.ResponseData{Code: 200, Success: false, Data: nil}
+		this.ServeJson()
+		return
+	}
 	// Get user id from session storage and convet it to sting
 	id = sess.Get("id").(string)
 
