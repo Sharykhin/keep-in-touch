@@ -58,21 +58,24 @@ app.config(['$stateProvider','$urlRouterProvider','$httpProvider','AccessProvide
             }
         })
         .state('sign_out',{
-            url:'/sign-out',
-            views: {
-                'content' : {
-                    controller: function(UserService,AuthService,$state) {   
-                            if (UserService.isLogged === false) {
-                                $state.go('home');
-                                return;
-                            }                     
-                            AuthService.signOut(function(data,status,headers,config) {
-                                $state.go('home'); 
-                            });
-                     }
+            url:'/sign-out',                       
+            views: {                 
+                'content' : {  
+                    controllerProvider: function() {
+                                return 'Auth.SignOut';
+                    }                    
                 }
             },           
             access: access.annon   
         })       
 
+}])
+.controller('Auth.SignOut',['UserService','AuthService','$state',function(UserService,AuthService,$state){
+    if (UserService.isLogged === false) {
+        $state.go('home');
+        return; 
+    }                      
+    AuthService.signOut(function(data,status,headers,config) {
+        $state.go('home'); 
+    });  
 }]);

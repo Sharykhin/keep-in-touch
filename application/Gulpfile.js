@@ -3,7 +3,8 @@ var gulp = require('gulp'),
     jshint = require('gulp-jshint'),
     browserify = require('gulp-browserify'),
     concat = require('gulp-concat'),
-    clean = require('gulp-clean');
+    clean = require('gulp-clean'),
+    uglyfly = require('gulp-uglyfly');
 
 var embedlr = require('gulp-embedlr'),
     refresh = require('gulp-livereload'),
@@ -30,6 +31,7 @@ gulp.task('browserify', function() {
       debug: true
     }))
     .pipe(concat('lib.js'))
+    .pipe(uglyfly())
     .pipe(gulp.dest('dist/js'))
 
   // Single point of entry (make sure not to src ALL your files, browserify will figure it out for you)
@@ -40,6 +42,7 @@ gulp.task('browserify', function() {
   }))
   // Bundle to a single file
   .pipe(concat('bundle.js'))
+  .pipe(uglyfly())
   // Output it to our dist folder
   .pipe(gulp.dest('dist/js'));
 });

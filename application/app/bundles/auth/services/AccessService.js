@@ -10,7 +10,7 @@ function AccessService($state,UserService,AuthService) {
 	};
 
 	var _checkAccess = function (toState, callback) {
-		console.log('Access: ' + _hasAccess(toState));
+		
 		if (angular.isDefined(toState.access)) {
 			
 			if (_hasAccess(toState) === false) {

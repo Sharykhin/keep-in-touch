@@ -10,6 +10,7 @@ var app =  angular.module(config.name).run(
                  console.log(UserService);              
                  // If user doen't have access show forrbiden page
                  AccessService.checkAccess(toState, function(isAccess){
+                    console.log("is access: " + isAccess);
                     if (isAccess === false) {
                       $rootScope.$evalAsync(function(){
                         $state.go('forrbiden');    
