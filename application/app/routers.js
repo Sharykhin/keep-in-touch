@@ -3,7 +3,7 @@ var app = angular.module('myApp');
 
 app.config(['$stateProvider','$urlRouterProvider','$httpProvider','AccessProvider', 
             function($stateProvider, $urlRouterProvider,$httpProvider,AccessProvider){
-   $httpProvider.defaults.withCredentials = true;
+   $httpProvider.defaults.withCredentials = true;  
    var access = AccessProvider.$get();  
    $urlRouterProvider.otherwise("/");
 

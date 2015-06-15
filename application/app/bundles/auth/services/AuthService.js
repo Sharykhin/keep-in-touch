@@ -1,14 +1,14 @@
 'use strict';
 
-AuthService.$inject=['$http','UserService'];
+AuthService.$inject=['$http','UserService','Access'];
 
-function AuthService($http,UserService) {
-
+function AuthService($http,UserService,Access) {
+	  
 	var _signOut = function(callback) {
 		$http.get('http://localhost:9090/sign-out')
 			.success(function(data,status,headers,config){
 				UserService.isLogged = false;
-				UserService.access = 1;
+				UserService.access = Access.annon;
 				UserService.data = {};
 				if (callback) {callback(data,status,headers,config);}
 			})
@@ -23,7 +23,7 @@ function AuthService($http,UserService) {
 				.success(function(data){
 						if (data.success === true)	{
 							UserService.isLogged=true;	
-							UserService.access = 2;				
+							UserService.access = Access.user;				
 							UserService.data=data.data;
 						}
 						if (callback) {

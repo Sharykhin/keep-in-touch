@@ -1,12 +1,13 @@
 'use strict';
 
-UserService.$inject=['$http'];
+UserService.$inject=['$http','Access'];
 
-function UserService($http) {
+function UserService($http,Access) {
+	console.log(Access);  
 	var user = {
 		isLogged: false,
 		hash: null,
-		access:1,
+		access: Access.annon,
 		data: {}		
 
 	};

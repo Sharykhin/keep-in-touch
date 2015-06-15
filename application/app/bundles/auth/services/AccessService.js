@@ -3,12 +3,11 @@
 AccessService.$inject=['$state','UserService','AuthService'];
 
 function AccessService($state,UserService,AuthService) {
-	var vm = this;
-
+	
 	var _hasAccess = function(toState) {
 		var hasAccess = (UserService.access === toState.access) ? true : (UserService.access < toState.access) ? false : true;
 		return hasAccess;
-	}
+	};
 
 	var _checkAccess = function (toState, callback) {
 		console.log('Access: ' + _hasAccess(toState));
@@ -37,7 +36,7 @@ function AccessService($state,UserService,AuthService) {
 				
 			}
 		}		
-	}
+	};
 
 	return  {
 		checkAccess: _checkAccess
