@@ -31,35 +31,7 @@ app.config(['$stateProvider','$urlRouterProvider','$httpProvider','AccessProvide
             }
         },
         access: access.admin                   
-    })
-    .state('sign_in',{
-        url: '/sign-in',
-        views: {
-            'content' : {
-                templateUrl : 'bundles/auth/views/sign_in.html',
-                controller : 'auth.AuthController'                    
-            }
-        },
-        access: access.annon            
-    })
-    .state('sign_up',{
-        url: '/sign-up',
-        views : {
-            'content' : {
-                templateUrl : 'bundles/auth/views/sign_up.html',
-                controller: 'auth.AuthController as authCtrl'
-            }
-        }
-    })  
-    .state('sign_out',{
-        url:'/sign-out',                       
-        views: {                 
-            'content' : {  
-                controller: 'auth.SighOutController'                                      
-            }
-        },           
-        access: access.annon   
-    })            
+    })   
     .state('forrbiden',{
         views: {
             'content': {
@@ -67,7 +39,9 @@ app.config(['$stateProvider','$urlRouterProvider','$httpProvider','AccessProvide
                 controller : function() {}
             }
         }
-    }); // end  $stateProvider.state        
+    }); // end  $stateProvider.state     
 
 }]); // end app.config
 
+//Include auth routers
+require('./bundles/auth/routers');
