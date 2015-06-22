@@ -95,6 +95,7 @@ func (this *AuthController) SignIn() {
 	cookie := http.Cookie{Name: "keepintouch", Value: hashedId, Expires: expiration}
 	http.SetCookie(this.Ctx.ResponseWriter, &cookie)
 	// Set response data
+	log.Println(user)
 	this.Data["json"] = services.ResponseData{Code: 200, Success: true, Data: user}
 	this.ServeJson()
 

@@ -64,7 +64,7 @@ function AuthController($scope,ValidationService,UserService,$http,$location,Aut
 					}					
 				} else {					
 					UserService.isLogged=true;	
-					UserService.access = Access.admin;				
+					UserService.access = data.data.role;				
 					UserService.data=data.data;
 					$location.path('/');
 				}
