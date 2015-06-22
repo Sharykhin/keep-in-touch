@@ -3,8 +3,6 @@ var app = angular.module('myApp');
 
 app.config(['$stateProvider','$urlRouterProvider','$httpProvider','AccessProvider', 
     function($stateProvider, $urlRouterProvider, $httpProvider, AccessProvider) {
-   // Add cookie to each request
-   $httpProvider.defaults.withCredentials = true;  
    // Get the access provider
    var access = AccessProvider.$get();  
    // Set a default url
