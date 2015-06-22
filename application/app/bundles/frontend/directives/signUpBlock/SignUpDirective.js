@@ -1,15 +1,12 @@
 'use strict';
 
-SignUpDirective.$inject = ['UserService','$state','$timeout'];
+SignUpDirective.$inject = ['UserService','StateService','$state','$timeout'];
 
-function SignUpDirective(UserService,$state,$timeout) {
+function SignUpDirective(UserService,StateService,$state,$timeout) {
 
 	function link (scope, element, attrs) {
-
-		$timeout(function(){
-			console.log($state.$current.access);
-		},1);
-		console.log($state.$current.access);
+		
+		console.log(StateService.getToState().access);
 		scope.User = UserService;		
 	}
 
