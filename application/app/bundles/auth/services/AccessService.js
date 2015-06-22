@@ -40,7 +40,8 @@ function AccessService($state,UserService,AuthService) {
 	};
 	// export API
 	return  {
-		checkAccess: _checkAccess
+		checkAccess: _checkAccess,
+		hasAccess: _hasAccess
 	};
 }
 
