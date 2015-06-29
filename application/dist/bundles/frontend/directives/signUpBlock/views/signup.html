@@ -1,0 +1,6 @@
+<div class="sign-up-block">
+<a ng-hide="User.isLogged" class="btn btn-sm btn-primary" ui-sref="sign_in">Sign In</a>
+<a ng-hide="User.isLogged" class="btn btn-sm btn-primary" ui-sref="sign_up">Sign Up</a>	
+<a ng-show="User.access === Access.admin" class="btn btn-sm btn-primary" ui-sref="home.list">Admin</a>	
+<a ng-show="User.isLogged" class="btn btn-sm btn-primary" ui-sref="sign_out">Sign Out</a>	
+</div>

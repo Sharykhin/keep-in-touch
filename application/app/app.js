@@ -8,7 +8,7 @@ require('./bundles/auth/index')
 var config = require('./config');
 
 
-var app = angular.module(config.name, ['underscore','ui.router','common','frontend','auth','ngCookies']);
+var app = angular.module(config.name, ['underscore','ui.router','common','auth','frontend','ngCookies']);
 
 require('./moddlewares/access');
 //Include routers
