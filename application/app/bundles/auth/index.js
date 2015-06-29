@@ -8,4 +8,5 @@ module
 	.factory('UserService', require('./services/UserService'))
 	.factory('AccessService', require('./services/AccessService'))
 	.factory('AuthService', require('./services/AuthService'))
+	.factory('API', require('./services/API'))
 	.provider('Access',require('./providers/AccessProvider')); 

@@ -1,6 +1,6 @@
 'use strict';		
 
-function AuthController($scope,ValidationService,UserService,$http,$location,AuthService,Access) {
+function AuthController($scope,ValidationService,UserService,$http,$location,AuthService,Access,API) {
 	/* jshint validthis: true */
 	var vm = this;
 
@@ -17,7 +17,24 @@ function AuthController($scope,ValidationService,UserService,$http,$location,Aut
 		if ($scope.userForm.$invalid) {
 				$scope.showErrors = true;
 				return false;
-		}		
+		}
+		
+		API.user.signUp(user)
+			.success(function(data,status,headers,config){				
+				$scope.showErrors = false;			
+				if (data.success === false) {
+					if (angular.isDefined(data.errors.validation)) {
+						ValidationService.compare($scope.userForm,data.errors.validation);					
+						$scope.showErrors = true;	
+					}					
+				} else {
+					$location.path('/');
+				}
+			})
+			.error(function(data, status, headers, config) {
+				throw 'Error with http request: ' + data;
+			});
+		/*		
 		$http.post('http://localhost:9090/users',user,{
         	headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}        	
     	})
@@ -38,7 +55,7 @@ function AuthController($scope,ValidationService,UserService,$http,$location,Aut
 			})
 			.error(function(data, status, headers, config) {
 				throw 'Error with http request: ' + data;
-			});
+			});*/
 
 	}
 
@@ -48,10 +65,8 @@ function AuthController($scope,ValidationService,UserService,$http,$location,Aut
 			$scope.showErrors = true;
 			return false;
 		}
-
-		$http.post('http://localhost:9090/sign-in',user,{
-        	headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}        	
-    	})
+		
+		API.user.signIn(user)
 			.success(function(data,status,headers,config){
 			
 				$scope.showErrors = false;			
@@ -76,8 +91,6 @@ function AuthController($scope,ValidationService,UserService,$http,$location,Aut
 			.error(function(data, status, headers, config) {
 				throw 'Error with http request: ' + data;
 			});
-
-
 	}	
 
 	$scope.getErrors = ValidationService.getErrors;
@@ -85,7 +98,7 @@ function AuthController($scope,ValidationService,UserService,$http,$location,Aut
 	
 }
 
-AuthController.$inject=['$scope','ValidationService','UserService','$http','$location','AuthService','Access'];
+AuthController.$inject=['$scope','ValidationService','UserService','$http','$location','AuthService','Access','API'];
 
 module.exports = AuthController;
 
