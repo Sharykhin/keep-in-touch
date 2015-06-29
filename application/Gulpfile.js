@@ -14,6 +14,7 @@ var embedlr = require('gulp-embedlr'),
     livereloadport = 35729,
     serverport = 9000;
 
+
 // JSHint task
 gulp.task('lint', function() {
   gulp.src('./app/bundles/auth/services/*.js')
@@ -59,6 +60,9 @@ gulp.task('copy', function() {
 
   gulp.src('./app/vendor/bootstrap/**/*')
     .pipe(gulp.dest('dist/vendor/bootstrap'));
+
+  gulp.src('./app/vendor/jquery/**/*')
+    .pipe(gulp.dest('dist/vendor/jquery'));
     
   // copy all views from bundles
   gulp.src('./app/bundles/**/*.html')

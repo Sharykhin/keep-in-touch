@@ -4,6 +4,7 @@
   <title>My Awesome App</title>
   <link rel="stylesheet" type="text/css" href="/vendor/bootstrap/dist/css/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="/vendor/bootstrap/dist/css/bootstrap-theme.min.css" />
+
   <link rel="stylesheet" type="text/css" href="/public/css/style.css">
 </head>
 <body>
@@ -21,10 +22,13 @@
 			
 			</div>
 		</div>
+		<top-navigation></top-navigation>
 		
 		 <div ui-view="content"></div>     
  	 </div>
- 	<script src="/js/lib.js"></script>
-  	<script src="/js/bundle.js"></script>	
+ 	<script defer src="vendor/jquery/dist/jquery.min.js"></script>
+  	<script defer src="/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+ 	<script defer src="/js/lib.js"></script>
+  	<script defer src="/js/bundle.js"></script>	
 </body>
 </html>
