@@ -12,7 +12,7 @@ function SignUpDirective(UserService,StateService,Access,$state,$timeout) {
 	}
 
 	return {
-		restrict: 'E',
+		restrict: 'E',		
 		link : link,
 		templateUrl: 'bundles/frontend/directives/signUpBlock/views/signup.html'
 	};
