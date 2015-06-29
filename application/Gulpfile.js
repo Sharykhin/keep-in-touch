@@ -4,7 +4,13 @@ var gulp = require('gulp'),
     browserify = require('gulp-browserify'),
     concat = require('gulp-concat'),
     clean = require('gulp-clean'),
-    uglyfly = require('gulp-uglyfly');
+    uglyfly = require('gulp-uglyfly'),
+    less = require('gulp-less'),
+    LessPluginCleanCSS = require('less-plugin-clean-css'),
+    LessPluginAutoPrefix = require('less-plugin-autoprefix');
+
+var cleancss = new LessPluginCleanCSS({ advanced: true }),
+    autoprefix= new LessPluginAutoPrefix({ browsers: ["last 2 versions"] });
 
 var embedlr = require('gulp-embedlr'),
     refresh = require('gulp-livereload'),
@@ -55,8 +61,14 @@ gulp.task('copy', function() {
   .pipe(gulp.dest('dist/'));
 
   //copy customer css|js|img files
-  gulp.src('./app/public/**/*')
+  gulp.src(['./app/public/**/*','!./app/public/less/','!./app/public/less/**/*'])
     .pipe(gulp.dest('dist/public'));
+
+  gulp.src(['./app/public/less/*.less'])
+    .pipe(less({
+      plugins: [autoprefix, cleancss]
+    }))
+    .pipe(gulp.dest('dist/public/css'));
 
   gulp.src('./app/vendor/bootstrap/**/*')
     .pipe(gulp.dest('dist/vendor/bootstrap'));
