@@ -6,4 +6,5 @@ module
 	.factory('ValidationService', require('./services/ValidationService'))
 	.service('StateService', require('./services/StateService'))
 	.directive('progressBar',require('./directives/progress/progressBarDirective'))
-	.directive('compareTo',require('./directives/validation/compareToDirective'));
+	.directive('compareTo',require('./directives/validation/compareToDirective'))
+	.factory('API', require('./services/API'));

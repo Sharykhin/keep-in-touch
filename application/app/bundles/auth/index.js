@@ -7,6 +7,5 @@ module
 	.controller(name + '.SighOutController', require('./controllers/SighOutController'))
 	.factory('UserService', require('./services/UserService'))
 	.factory('AccessService', require('./services/AccessService'))
-	.factory('AuthService', require('./services/AuthService'))
-	.factory('API', require('./services/API'))
+	.factory('AuthService', require('./services/AuthService'))	
 	.provider('Access',require('./providers/AccessProvider')); 
