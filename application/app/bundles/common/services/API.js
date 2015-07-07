@@ -9,7 +9,7 @@ function API($http) {
 	var user = {
 		signIn: function(data) {
 				 
-				var promise = $http.post(API_HOST + '/sign-in',data,{
+				var promise = $http.post(API_HOST + '/api/v2/sign-in',data,{
         			headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}        	
     			});
     			return promise;

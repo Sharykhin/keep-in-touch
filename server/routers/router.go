@@ -9,8 +9,18 @@ import (
 
 func init() {
 
-	beego.InsertFilter("/", beego.BeforeRouter, func(ctx *context.Context) {
+	beego.InsertFilter("/api/v1", beego.BeforeRouter, func(ctx *context.Context) {
 		ctx.Output.Header("Access-Control-Allow-Origin", "*")
 	})
 	beego.Router("/", &controllers.EchoController{})
+
+	ns := beego.NewNamespace("/api",
+		beego.NSNamespace("/v1",
+			beego.NSBefore(func(ctx *context.Context) {
+				ctx.Output.Header("Access-Control-Allow-Origin", "*")
+			}),
+			beego.NSRouter("/", &controllers.EchoController{}),
+		),
+	)
+	beego.AddNamespace(ns)
 }
