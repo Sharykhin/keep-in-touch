@@ -76,6 +76,7 @@ func (this *UsersController) Post() {
 	// Encrypt password by using sha512
 	hashedPassword := encryptService.EncryptString(user.Password, "sha512")
 	user.Password = hashedPassword
+	user.Role = 1
 	// Make insert request
 	id, err := o.Insert(user)
 	if err != nil {
