@@ -1,11 +1,11 @@
 'use strict';
 
-AuthService.$inject=['$http','UserService','Access'];
+AuthService.$inject=['$http','UserService','Access', 'API'];
 
-function AuthService($http,UserService,Access) {
+function AuthService($http,UserService,Access,API) {
 	  
 	var _signOut = function(callback) {
-		$http.get('http://localhost:9090/sign-out')
+		API.user.signOut()		
 			.success(function(data,status,headers,config){
 				UserService.isLogged = false;
 				UserService.access = Access.annon;
@@ -17,9 +17,9 @@ function AuthService($http,UserService,Access) {
 			});
 	};
 
-	var _checkAuth = function(callback) {		
-			
-			$http.get('http://localhost:9090/check-auth')
+	var _checkAuth = function(callback) {	
+		
+			API.user.checkAuth()			
 				.success(function(data){
 						if (data.success === true)	{
 							UserService.isLogged=true;	

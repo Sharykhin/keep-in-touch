@@ -19,13 +19,20 @@ function API($http) {
         		headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}        	
     		});
     		return promise;
+		},
+		signOut: function() {
+			var promise = $http.get(API_HOST + '/sign-out');
+			return promise;
+		},
+		checkAuth: function() {
+			var promise = $http.get(API_HOST + '/check-auth');
+			return promise;
 		}
 	}
 
 	return {
 		user:user
-	}
-
+	};
 
 }
 
