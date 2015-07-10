@@ -6,13 +6,19 @@ import (
 	"log"
 )
 
-type RouteMap struct {
-	Routes map[string]interface{}
-}
+var NS *beego.Namespace
 
 func init() {
 
-	beego.Router("/users", &controllers.UsersController{})
+	//beego.Router("/users", &controllers.UsersController{})
+
+	ns := beego.NewNamespace("/users",
+		beego.NSRouter("/", &controllers.UsersController{}),
+	)
+
+	beego.NSRouter("/", &controllers.UsersController{})
+
+	NS = ns
 
 	/*ns := beego.NewNamespace("/api",
 		beego.NSNamespace("/v1",
@@ -23,6 +29,8 @@ func init() {
 		),
 	)
 	beego.AddNamespace(ns)*/
+
+	log.Printf("%T", beego.NSRouter("/users", &controllers.UsersController{}))
 	log.Println("I am second")
 
 }

@@ -4,15 +4,14 @@ import (
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/context"
 	"keep-in-touch/server/controllers"
-	_ "keep-in-touch/server/modules/users/routers"
+	userRoutes "keep-in-touch/server/modules/users/routers"
 	"log"
 )
 
 func init() {
 
 	beego.InsertFilter("*", beego.BeforeRouter, func(ctx *context.Context) {
-		ctx.Request.URL = "/api/v1" + ctx.Request.URL
-		log.Println(ctx.Request.URL)
+
 		if origin := ctx.Request.Header.Get("Origin"); origin != "" {
 			ctx.Output.Header("Access-Control-Allow-Origin", origin)
 			ctx.Output.Header("Access-Control-Allow-Credentials", "true")
@@ -24,12 +23,15 @@ func init() {
 	})
 
 	beego.Router("/", &controllers.EchoController{})
+	log.Println(userRoutes.NS)
+	beego.AddNamespace(userRoutes.NS)
 	log.Println("I am first")
 
 	ns := beego.NewNamespace("/api").Namespace(
-		beego.NewNamespace("v1",
+		beego.NewNamespace("/v1",
 			beego.NSRouter("/", &controllers.EchoController{}),
 		),
+		userRoutes.NS,
 	)
 	beego.AddNamespace(ns)
 	/*ns := beego.NewNamespace("/api",
