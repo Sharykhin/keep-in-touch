@@ -10,17 +10,18 @@ var NS *beego.Namespace
 
 func init() {
 
-	//beego.Router("/users", &controllers.UsersController{})
+	/*beego.Router(beego.AppConfig.String("APIURL")+beego.AppConfig.String("APIV2")+"/users", &controllers.UsersController{})
+	beego.Router("/v2/users", &controllers.UsersController{})
 
+	// Register users namesoace
 	ns := beego.NewNamespace("/users",
 		beego.NSRouter("/", &controllers.UsersController{}),
 	)
+	beego.AddNamespace(ns)
 
-	beego.NSRouter("/", &controllers.UsersController{})
+	NS = ns*/
 
-	NS = ns
-
-	/*ns := beego.NewNamespace("/api",
+	ns := beego.NewNamespace("/api",
 		beego.NSNamespace("/v1",
 			beego.NSRouter("/users", &controllers.UsersController{}),
 			beego.NSRouter("/sign-in", &controllers.AuthController{}, "post:SignIn"),
@@ -28,7 +29,9 @@ func init() {
 			beego.NSRouter("/check-auth", &controllers.AuthController{}, "get:CheckAuth"),
 		),
 	)
-	beego.AddNamespace(ns)*/
+
+	NS = ns
+	//beego.AddNamespace(ns)
 
 	log.Printf("%T", beego.NSRouter("/users", &controllers.UsersController{}))
 	log.Println("I am second")

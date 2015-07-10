@@ -23,21 +23,27 @@ func init() {
 	})
 
 	beego.Router("/", &controllers.EchoController{})
-	log.Println(userRoutes.NS)
-	beego.AddNamespace(userRoutes.NS)
-	log.Println("I am first")
 
-	ns := beego.NewNamespace("/api").Namespace(
-		beego.NewNamespace("/v1",
-			beego.NSRouter("/", &controllers.EchoController{}),
-		),
-		userRoutes.NS,
-	)
-	beego.AddNamespace(ns)
-	/*ns := beego.NewNamespace("/api",
+	log.Println(userRoutes.NS)
+
+	ns := beego.NewNamespace("/api",
 		beego.NSNamespace("/v1",
 			beego.NSRouter("/", &controllers.EchoController{}),
 		),
 	)
-	beego.AddNamespace(ns)*/
+	ns.("/foo", &controllers.EchoController{})
+	beego.AddNamespace(ns)
+
+	// Register namespace of v1
+	/*apiV1 := beego.NewNamespace("/v1").Namespace(
+		userRoutes.NS,
+	)
+	beego.AddNamespace(apiV1)*/
+
+	//Register global api namespace
+	/*apiNs := beego.NewNamespace("/api").Namespace(
+		apiV1,
+	)
+	beego.AddNamespace(apiNs)*/
+
 }
