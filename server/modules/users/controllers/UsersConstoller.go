@@ -14,7 +14,14 @@ type UsersController struct {
 }
 
 func (this *UsersController) Get() {
-	this.Data["json"] = services.ResponseData{Code: 200}
+	o := orm.NewOrm()
+	o.Using("default")
+	var users []userModel.User
+	qb, _ := orm.NewQueryBuilder("mysql")
+	qb.Select("*").From("user")
+	sql := qb.String()
+	o.Raw(sql).QueryRows(&users)
+	this.Data["json"] = services.ResponseData{Code: 200, Success: true, Data: users}
 	this.ServeJson()
 }
 
