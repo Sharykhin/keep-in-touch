@@ -2,7 +2,7 @@
 
 var config = {
     name: 'myApp'
-}
+};
 
-module.exports = config
+module.exports = config;
 

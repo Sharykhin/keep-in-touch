@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 var app = angular.module('myApp');
 
 app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', 'AccessProvider',
@@ -8,12 +8,12 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', 'AccessProv
         // Get the access provider
         var access = AccessProvider.$get();
         // Set a default url
-        $urlRouterProvider.otherwise("/");
+        $urlRouterProvider.otherwise('/');
 
         // Now set up the states      
         $stateProvider
             .state('home', {
-                url: "/",
+                url: '/',
                 views: {
                     'content': {
                         templateUrl: 'bundles/frontend/views/index.html',
@@ -23,7 +23,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', 'AccessProv
                 access: access.annon
             })
             .state('home.list', {
-                url: "admin",
+                url: 'admin',
                 views: {
                     'list@home': {
                         templateUrl: 'bundles/frontend/views/list.html',

@@ -10,19 +10,19 @@ function ValidationService() {
             return message || 'This field is required';
         },
         'pattern': function (rule, message) {
-            var rule = angular.isDefined(rule) ? rule : {
+            rule = angular.isDefined(rule) ? rule : {
                 pattern: 'value'
             };
             return message || 'Enter valid ' + rule.pattern;
         },
         'minlength': function (rule, message) {
-            var rule = angular.isDefined(rule) ? rule : {
+            rule = angular.isDefined(rule) ? rule : {
                 minlength: 8
             };
             return message || 'The field should contain at least ' + rule.minlength + ' characters';
         },
         'compareTo': function (rule, message) {
-            var rule = angular.isDefined(rule) ? rule : {
+            rule = angular.isDefined(rule) ? rule : {
                 compareTo: 'password'
             };
             return message || 'Confirm the ' + rule.compareTo;

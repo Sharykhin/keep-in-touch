@@ -10,7 +10,7 @@ function AccessProvider() {
             annon: 1,
             user: 2,
             admin: 4
-        }
+        };
 
         return UserRoles;
     }

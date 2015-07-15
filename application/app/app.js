@@ -3,7 +3,7 @@
 //Requires bundles
 require('./bundles/common/index');
 require('./bundles/frontend/index'); // We can use our WelcomeCtrl.js as a module. Rainbows.
-require('./bundles/auth/index')
+require('./bundles/auth/index');
 
 var config = require('./config');
 

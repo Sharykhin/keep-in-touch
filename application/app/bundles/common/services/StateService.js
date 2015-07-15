@@ -6,7 +6,7 @@ function StateService() {
     var _toState = {};
 
     function _setToState(toState) {
-        _toState = toState
+        _toState = toState;
     }
 
     function _getToState() {

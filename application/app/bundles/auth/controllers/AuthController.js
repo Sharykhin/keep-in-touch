@@ -1,5 +1,7 @@
 'use strict';
 
+AuthController.$inject = ['$scope', 'ValidationService', 'UserService', '$http', '$location', 'AuthService', 'Access', 'API'];
+
 function AuthController($scope, ValidationService, UserService, $http, $location, AuthService, Access, API) {
     /* jshint validthis: true */
     var vm = this;
@@ -75,8 +77,6 @@ function AuthController($scope, ValidationService, UserService, $http, $location
 
 
 }
-
-AuthController.$inject = ['$scope', 'ValidationService', 'UserService', '$http', '$location', 'AuthService', 'Access', 'API'];
 
 module.exports = AuthController;
 

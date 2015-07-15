@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 var name = 'common';
 var module = angular.module(name, []);

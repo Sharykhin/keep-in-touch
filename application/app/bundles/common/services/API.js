@@ -1,6 +1,6 @@
 'use strict';
 
-API.$inject = ['$http']
+API.$inject = ['$http'];
 
 function API($http) {
 
@@ -32,7 +32,7 @@ function API($http) {
             var promise = $http.get(API_HOST + '/check-auth');
             return promise;
         }
-    }
+    };
 
     return {
         user: user

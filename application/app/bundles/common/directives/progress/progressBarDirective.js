@@ -4,7 +4,7 @@ progressBarDirective.$inject = ['_'];
 
 function progressBarDirective(_) {
     return {
-        restrict: "E",
+        restrict: 'E',
         scope: {
             form: '=',
             model: '=',
@@ -28,14 +28,14 @@ function progressBarDirective(_) {
                 // Initialize if this field should be added to names array
                 var isShouldBeAdded = false;
                 // Check if field was filled by data and it isn't in names
-                if (fieldValue != '' && !isContains) {
+                if (fieldValue !== '' && !isContains) {
                     // Mark this field as should be added to names
                     isShouldBeAdded = true;
                     // Increase data of progress bar
                     scope.progress += step;
-                } else if (fieldValue == '' && isContains) {
+                } else if (fieldValue === '' && isContains) {
                     //Reduce value of progress bar if data of field was removed
-                    if (scope.progress != 0) {
+                    if (scope.progress !== 0) {
                         scope.progress -= step;
                         var key = _.indexOf(names, fieldName);
                         delete names[key];
@@ -50,7 +50,7 @@ function progressBarDirective(_) {
             });
 
         }
-    }
+    };
 }
 
 

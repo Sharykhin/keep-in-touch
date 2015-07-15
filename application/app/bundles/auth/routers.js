@@ -1,4 +1,5 @@
-'use strict'
+'use strict';
+
 var app = angular.module('myApp');
 
 app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', 'AccessProvider',
@@ -6,7 +7,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', 'AccessProv
         // Get the access provider
         var access = AccessProvider.$get();
         // Set a default url
-        $urlRouterProvider.otherwise("/");
+        $urlRouterProvider.otherwise('/');
 
         // Now set up the states      
         $stateProvider
@@ -38,7 +39,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', 'AccessProv
                     }
                 },
                 access: access.annon
-            })
+            });
 
 }]); // end app.config
 
