@@ -5,6 +5,7 @@ AuthController.$inject = ['$scope', 'ValidationService', 'UserService', '$http',
 function AuthController($scope, ValidationService, UserService, $http, $location, AuthService, Access, API) {
     /* jshint validthis: true */
     var vm = this;
+    $scope.$parent.user = {}; 
 
     $scope.matchEmail = ValidationService.patterns.email;
 
