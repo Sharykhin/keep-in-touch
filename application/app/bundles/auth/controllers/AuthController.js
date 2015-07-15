@@ -30,8 +30,9 @@ function AuthController($scope, ValidationService, UserService, $http, $location
                         $scope.showErrors = true;
                     }
                 } else {
-                    $scope.$parent.user = {};
-                    $location.path('/');
+                    //If everything is ok, sign-in the user
+                    signIn(user);                   
+                    $scope.$parent.user = {};                    
                 }
             })
             .error(function (data, status, headers, config) {
