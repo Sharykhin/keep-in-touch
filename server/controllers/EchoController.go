@@ -9,8 +9,8 @@ type EchoController struct {
 }
 
 type Echo struct {
-	Status   int
-	Response string
+	Status   int    `json:"status"`
+	Response string `json:"response"`
 }
 
 func (this *EchoController) Get() {
@@ -23,7 +23,7 @@ func (this *EchoController) Get() {
 func (this *EchoController) Post() {
 
 	this.Data["json"] = struct {
-		RequestType string
+		RequestType string `json:"request_type"`
 	}{
 		RequestType: this.Ctx.Request.Method,
 	}

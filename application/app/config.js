@@ -1,7 +1,8 @@
 'use strict';
 
 var config = {
-	name : 'myApp'
-}
+    name: 'myApp'
+};
 
-module.exports=config
+module.exports = config;
+

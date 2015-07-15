@@ -1,46 +1,49 @@
 'use strict';
 
-AuthService.$inject=['$http','UserService','Access'];
+AuthService.$inject = ['$http', 'UserService', 'Access', 'API'];
 
-function AuthService($http,UserService,Access) {
-	  
-	var _signOut = function(callback) {
-		$http.get('http://localhost:9090/sign-out')
-			.success(function(data,status,headers,config){
-				UserService.isLogged = false;
-				UserService.access = Access.annon;
-				UserService.data = {};
-				if (callback) {callback(data,status,headers,config);}
-			})
-			.error(function() {
-				throw new Error('ajax error request: /sign-out ');
-			});
-	};
+function AuthService($http, UserService, Access, API) {
 
-	var _checkAuth = function(callback) {		
-			
-			$http.get('http://localhost:9090/check-auth')
-				.success(function(data){
-						if (data.success === true)	{
-							UserService.isLogged=true;	
-							UserService.access = Access.user;				
-							UserService.data=data.data;
-						}
-						if (callback) {
-							callback.call(null,data);	
-						}					
-						
-				})
-				.error(function(){
-					throw new Error('ajax error request: /check-auth ');
-				}); 
-	};
+    var _signOut = function (callback) {
+        API.user.signOut()
+            .success(function (data, status, headers, config) {
+                UserService.isLogged = false;
+                UserService.access = Access.annon;
+                UserService.data = {};
+                if (callback) {
+                    callback(data, status, headers, config);
+                }
+            })
+            .error(function () {
+                throw new Error('ajax error request: /sign-out ');
+            });
+    };
 
-	return  {
-		signOut: _signOut,
-		checkAuth: _checkAuth
-	};
+    var _checkAuth = function (callback) {
+
+        API.user.checkAuth()
+            .success(function (data) {
+                if (data.success === true) {
+                    UserService.isLogged = true;
+                    UserService.access = Access.user;
+                    UserService.data = data.data;
+                }
+                if (callback) {
+                    callback.call(null, data);
+                }
+
+            })
+            .error(function () {
+                throw new Error('ajax error request: /check-auth ');
+            });
+    };
+
+    return {
+        signOut: _signOut,
+        checkAuth: _checkAuth
+    };
 }
 
 
-module.exports=AuthService;
+module.exports = AuthService;
+

@@ -6,6 +6,8 @@ var gulp = require('gulp'),
   clean = require('gulp-clean'),
   uglyfly = require('gulp-uglyfly'),
   less = require('gulp-less'),
+  prettify = require('gulp-jsbeautifier'),
+  ngAnnotate = require('gulp-ng-annotate'),
   LessPluginCleanCSS = require('less-plugin-clean-css'),
   LessPluginAutoPrefix = require('less-plugin-autoprefix');
 
@@ -27,10 +29,25 @@ var embedlr = require('gulp-embedlr'),
 
 // JSHint task
 gulp.task('lint', function() {
-  gulp.src('./app/bundles/auth/services/*.js')
+  gulp.src(['./app/**/*.js','!./app/vendor/**/*.js'])
     .pipe(jshint())
     // You can look into pretty reporters as well, but that's another story
     .pipe(jshint.reporter('jshint-stylish'));
+});
+
+// JS Beautify
+gulp.task('beautify', function() {
+    //gulp.src([config.jsAssets + '/**/*.js'])
+    gulp.src(['./app/**/*.js','!./app/vendor/**/*.js'])
+        .pipe(prettify({config: '.jsbeautifyrc', mode: 'VERIFY_AND_WRITE'}))
+        .pipe(gulp.dest('./app'));
+    
+});
+
+gulp.task('ng', function () {
+    return gulp.src('./app/bundles/auth/controllers/AuthController.js')
+        .pipe(ngAnnotate())
+        .pipe(gulp.dest('./app/bundles/auth/controllers/AuthControllerAN.js'));
 });
 
 // Browserify task

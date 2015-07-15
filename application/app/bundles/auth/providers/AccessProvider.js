@@ -1,26 +1,24 @@
 'use strict';
 
 
-
 function AccessProvider() {
 
-	function Access() { 
-		
-		var UserRoles = {
+    function Access() {
 
-			annon: 1,
-			user: 2,
-			admin: 4
-		}
+        var UserRoles = {
 
-		return UserRoles;
-	}
+            annon: 1,
+            user: 2,
+            admin: 4
+        };
 
-	this.$get = function() {
-		return new Access();
-	};
+        return UserRoles;
+    }
+
+    this.$get = function () {
+        return new Access();
+    };
 }
-
 
 
 module.exports = AccessProvider;
