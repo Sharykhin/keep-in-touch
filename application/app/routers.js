@@ -44,5 +44,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', 'AccessProv
 }]); // end app.config
 
 //Include auth routers
+require('./bundles/friends/routers');
 require('./bundles/auth/routers');
+
 
