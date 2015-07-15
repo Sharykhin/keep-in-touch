@@ -6,6 +6,7 @@ var gulp = require('gulp'),
   clean = require('gulp-clean'),
   uglyfly = require('gulp-uglyfly'),
   less = require('gulp-less'),
+  prettify = require('gulp-jsbeautifier'),
   LessPluginCleanCSS = require('less-plugin-clean-css'),
   LessPluginAutoPrefix = require('less-plugin-autoprefix');
 
@@ -31,6 +32,14 @@ gulp.task('lint', function() {
     .pipe(jshint())
     // You can look into pretty reporters as well, but that's another story
     .pipe(jshint.reporter('jshint-stylish'));
+});
+
+gulp.task('beautify', function() {
+    //gulp.src([config.jsAssets + '/**/*.js'])
+    gulp.src(['./app/**/*.js','!./app/vendor/**/*.js'])
+        .pipe(prettify({config: '.jsbeautifyrc', mode: 'VERIFY_ONLY'}))
+        .pipe(gulp.dest('./app'));
+    
 });
 
 // Browserify task

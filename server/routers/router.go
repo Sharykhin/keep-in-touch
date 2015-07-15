@@ -4,8 +4,7 @@ import (
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/context"
 	"keep-in-touch/server/controllers"
-	userRoutes "keep-in-touch/server/modules/users/routers"
-	"log"
+	_ "keep-in-touch/server/modules/users/routers"
 )
 
 func init() {
@@ -23,16 +22,18 @@ func init() {
 	})
 
 	beego.Router("/", &controllers.EchoController{})
+	/*
 
-	log.Println(userRoutes.NS)
 
-	ns := beego.NewNamespace("/api",
-		beego.NSNamespace("/v1",
-			beego.NSRouter("/", &controllers.EchoController{}),
-		),
-	)
-	ns.("/foo", &controllers.EchoController{})
-	beego.AddNamespace(ns)
+		log.Println(userRoutes.NS)
+
+		ns := beego.NewNamespace("/api",
+			beego.NSNamespace("/v1",
+				beego.NSRouter("/", &controllers.EchoController{}),
+			),
+		)
+		ns.("/foo", &controllers.EchoController{})
+		beego.AddNamespace(ns)*/
 
 	// Register namespace of v1
 	/*apiV1 := beego.NewNamespace("/v1").Namespace(
