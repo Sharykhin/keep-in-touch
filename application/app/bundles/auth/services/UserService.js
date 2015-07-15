@@ -1,18 +1,19 @@
 'use strict';
 
-UserService.$inject=['$http','Access'];
+UserService.$inject = ['$http', 'Access'];
 
-function UserService($http,Access) {
-	console.log(Access);  
-	var user = {
-		isLogged: false,
-		hash: null,
-		access: Access.annon,
-		data: {}		
+function UserService($http, Access) {
+    console.log(Access);
+    var user = {
+        isLogged: false,
+        hash: null,
+        access: Access.annon,
+        data: {}
 
-	};
+    };
 
-	return user;
+    return user;
 }
 
-module.exports=UserService;
+module.exports = UserService;
+

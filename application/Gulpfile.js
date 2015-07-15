@@ -37,7 +37,7 @@ gulp.task('lint', function() {
 gulp.task('beautify', function() {
     //gulp.src([config.jsAssets + '/**/*.js'])
     gulp.src(['./app/**/*.js','!./app/vendor/**/*.js'])
-        .pipe(prettify({config: '.jsbeautifyrc', mode: 'VERIFY_ONLY'}))
+        .pipe(prettify({config: '.jsbeautifyrc', mode: 'VERIFY_AND_WRITE'}))
         .pipe(gulp.dest('./app'));
     
 });
